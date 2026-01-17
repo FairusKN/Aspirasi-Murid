@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('username');
+            $table->string('username')->unique();
             $table->string("full_name");
             $table->enum("role", array_column(UserRole::cases(), 'value'))->value(UserRole::Student->value);
             $table->string("nis")->nullable(true);
