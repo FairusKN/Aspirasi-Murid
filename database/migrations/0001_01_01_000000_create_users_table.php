@@ -4,6 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+use App\Enum\UserRole;
+
 return new class extends Migration
 {
     /**
@@ -12,10 +14,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->uuid('id')->primary();
+            $table->string('username');
+            $table->string("full_name");
+            $table->enum("role", array_column(UserRole::cases(), 'value'))->value(UserRole::Student->value);
+            $table->string("nis")->nullable(true);
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
