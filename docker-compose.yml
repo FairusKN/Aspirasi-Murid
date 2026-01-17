@@ -37,10 +37,10 @@ services:
             - .docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
             - .docker/db/sql:/docker-entrypoint-initdb.d
         environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: refactorian
-            MYSQL_USER: refactorian
-            MYSQL_PASSWORD: refactorian
+            MYSQL_ROOT_PASSWORD: lmao
+            MYSQL_DATABASE: aspirasi
+            MYSQL_USER: russ
+            MYSQL_PASSWORD: testlmao
 
     ####################################################################################################
     # phpMyAdmin
