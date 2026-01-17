@@ -2,6 +2,7 @@ FROM php:8.4-fpm
 
 COPY php.ini /usr/local/etc/php/
 COPY docker.conf /usr/local/etc/php-fpm.d/docker.conf
+COPY www.conf /usr/local/etc/php-fpm.d/www.conf
 COPY .bashrc /root/
 
 # Copy the entrypoint script
