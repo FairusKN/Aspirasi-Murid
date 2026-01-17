@@ -8,18 +8,25 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function loginView()
-    {
-        return view('auth.login');
-    }
-
     public function login(LoginRequest $request)
     {
         $fields = $request->validated();
 
         if (Auth::attempt($fields)) {
             $request->session()->regenerate();
-            dd("Testlmao");
+            return redirect()->intended('/dashboard');
         }
+
+        return back()->withErrors(['error' => 'Invalid credentials']);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }

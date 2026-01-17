@@ -125,20 +125,20 @@
             <p>Sign in to your account</p>
         </div>
 
-        <form method="POST" action="/auth/login">
-            <!-- CSRF Token (Required for Laravel) -->
+        <form method="POST" action="{{ route('login_action')}}">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
             <div class="form-group">
-                <label for="username">userame</label>
+                <label for="username">Username</label>
                 <input
-                    type="username"
+                    type="text"
                     id="username"
                     name="username"
                     class="form-control"
                     placeholder="username123"
                     required
                 >
+                <x-input-error field="username" />
             </div>
 
             <div class="form-group">
@@ -151,11 +151,18 @@
                     placeholder="••••••••"
                     required
                 >
+                <x-input-error field="password" />
             </div>
 
             <button type="submit" class="btn-login">Sign In</button>
 
         </form>
+
+        @if ($errors->has('error'))
+            <div style="color: red; margin-bottom: 8px; text-align:center; margin-top:20px;">
+                {{ $errors->first('error') }}
+            </div>
+        @endif
     </div>
 </body>
 </html>
