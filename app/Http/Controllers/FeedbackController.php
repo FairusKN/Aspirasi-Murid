@@ -9,7 +9,7 @@ use App\Service\FeedbackService;
 
 use App\Http\Requests\Feedback\CreateFeedbackRequest;
 use App\Http\Requests\Feedback\UpdateFeedbackRequest;
-use App\Http\Requests\Feedback\UpdateStatusFeedbackRequest;
+use App\Http\Requests\Feedback\UpdateResponseFeedbackRequest;
 
 class FeedbackController extends Controller
 {
@@ -39,7 +39,7 @@ class FeedbackController extends Controller
         return redirect()->intended('/dashboard');
     }
 
-    public function updateStatus(UpdateStatusFeedbackRequest $request, Feedback $feedback)
+    public function updateStatus(UpdateResponseFeedbackRequest $request, Feedback $feedback)
     {
         // Update Status Feedback Admin Only
         $feedback->update($request->validated());
