@@ -25,7 +25,7 @@
         <div class="flex-1 p-8">
             <div class="flex justify-between items-center mb-8">
                 <h2 class="text-2xl font-semibold text-gray-800">Feedback Overview</h2>
-                <form method="POST" action="{{ route('logout_action') }}" class="inline">
+                <form method="POST" action="{{ route('auth.logout') }}" class="inline">
                     @csrf
                     <button
                         type="submit"

@@ -16,11 +16,28 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
+        //superadmin
+        User::create([
+            'username' => 'spadmin',
+            'full_name' => "super admin",
+            'role' => UserRole::SuperAdmin->value,
+            'password' => 'testlmao'
+        ]);
+
+        //admin
         User::create([
             'username' => 'testadmin',
             'full_name' => "admin test",
             'role' => UserRole::Admin->value,
             'password' => "testlmao"
+        ]);
+
+        //student
+        User::create([
+            'username' => 'teststudent',
+            'full_name' => 'student test',
+            'role' => UserRole::Student->value,
+            'password' => 'testlmao'
         ]);
     }
 }

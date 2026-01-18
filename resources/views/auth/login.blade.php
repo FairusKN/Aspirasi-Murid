@@ -125,7 +125,7 @@
             <p>Sign in to your account</p>
         </div>
 
-        <form method="POST" action="{{ route('login_action')}}">
+        <form method="POST" action="{{ route('auth.login')}}">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
             <div class="form-group">

@@ -2,17 +2,21 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\PageController;
+// Logic
 use App\Http\Controllers\AuthController;
 
+// Page COntroller
+use App\Http\Controllers\PageController\LoginController;
+use App\Http\Controllers\PageController\DashboardController;
+
 Route::get('/', function () {
-    return redirect('/auth/login');
+    return redirect()->route('page.login');
 });
 
 Route::prefix("/auth")->group(function () {
-    Route::get("/login", [PageController::class, 'login']);
-    Route::post("/login", [AuthController::class, 'login'])->middleware("throttle:5,1")->name("login_action");
-    Route::post("/logout", [AuthController::class, 'logout'])->name('logout_action');
+    Route::get("/login", LoginController::class)->name('page.login');
+    Route::post("/login", [AuthController::class, 'login'])->middleware("throttle:5,1")->name("auth.login");
+    Route::post("/logout", [AuthController::class, 'logout'])->name('auth.logout');
 });
 
 
@@ -20,4 +24,6 @@ Route::prefix("/auth")->group(function () {
 #Route::get("/create_admin");
 #Route::post("/create_admin");
 
-Route::get("/dashboard", [PageController::class, 'dashboard']);
+Route::middleware('auth')->group(function () {
+    Route::get("/dashboard", DashboardController::class)->name('page.dashboard');
+});

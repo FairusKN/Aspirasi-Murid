@@ -15,7 +15,12 @@ class Feedback extends Model
         'feeedback_title',
         'details',
         'location',
-        'status'
+        'status',
+        'user_id'
+    ];
+
+    protected $casts = [
+        'user_id' => 'string',
     ];
 
     public function student(): BelongsTo
