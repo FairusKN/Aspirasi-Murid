@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
+use App\Models\Feedback;
 
 class FeedbackPolicy
 {
@@ -16,6 +17,6 @@ class FeedbackPolicy
 
     public function isUserCreateThisFeedback(User $user, Feedback $feedback)
     {
-        return $user->id === $feedback->details;
+        return $user->id === $feedback->user_id;
     }
 }
