@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string("full_name");
             $table->enum("role", array_column(UserRole::cases(), 'value'))->value(UserRole::Student->value);
-            $table->string("nis")->nullable(true);
+            $table->string("nis")->nullable(true)->unique();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
