@@ -5,10 +5,10 @@ namespace App\Http\Requests\Feedback;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
 
-use App\Enum\UserRole;
 use App\Enum\FeedbackStatus;
+use App\Enum\UserRole;
 
-class UpdateStatusFeedbackRequest extends FormRequest
+class UpdateResponseFeedbackRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,8 @@ class UpdateStatusFeedbackRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => [new Enum(FeedbackStatus::class)]
+            'status' => ['nullable', new Enum(FeedbackStatus::class)],
+            'admin_response' => 'nullable|string'
         ];
     }
 }
