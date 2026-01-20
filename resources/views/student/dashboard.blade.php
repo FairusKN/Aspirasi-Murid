@@ -13,62 +13,99 @@
             <p class="text-gray-600 mt-2">Help us improve by sharing your experience</p>
         </div>
 
-        <form method="POST" action="/feedback">
+        @if ($errors->any())
+            <div class="mb-6 p-3 bg-red-50 text-red-700 rounded-lg text-sm">
+                <ul class="list-disc pl-5">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div class="mb-6 p-3 bg-green-50 text-green-700 rounded-lg text-sm">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        <form method="POST" action="{{ route('feedback.store') }}">
             @csrf
+
             <div class="space-y-6">
-                <!-- Rating -->
+                <!-- Feedback Title -->
                 <div>
-                    <label class="block text-gray-700 font-medium mb-2">How would you rate your experience?</label>
-                    <div class="flex space-x-2">
-                        <!-- You can enhance this with JS later -->
-                        <select name="rating" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
-                            <option value="">Select a rating</option>
-                            <option value="5">★★★★★ (Excellent)</option>
-                            <option value="4">★★★★☆ (Good)</option>
-                            <option value="3">★★★☆☆ (Average)</option>
-                            <option value="2">★★☆☆☆ (Poor)</option>
-                            <option value="1">★☆☆☆☆ (Very Poor)</option>
-                        </select>
-                    </div>
+                    <label class="block text-gray-700 font-medium mb-2" for="feeedback_title">
+                        Feedback Title *
+                    </label>
+                    <input
+                        type="text"
+                        id="feeedback_title"
+                        name="feeedback_title"
+                        value="{{ old('feeedback_title') }}"
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                        placeholder="e.g. Slow response time"
+                        required
+                    />
                 </div>
 
                 <!-- Category -->
                 <div>
-                    <label class="block text-gray-700 font-medium mb-2">Category</label>
-                    <select name="category" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    <label class="block text-gray-700 font-medium mb-2" for="category_id">
+                        Category *
+                    </label>
+                    <select
+                        id="category_id"
+                        name="category_id"
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                        required
+                    >
                         <option value="">Select a category</option>
-                        <option value="product">Product Quality</option>
-                        <option value="support">Customer Support</option>
-                        <option value="website">Website Experience</option>
-                        <option value="delivery">Delivery & Shipping</option>
-                        <option value="other">Other</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
 
-                <!-- Message -->
+                <!-- Details -->
                 <div>
-                    <label class="block text-gray-700 font-medium mb-2">Your Feedback</label>
+                    <label class="block text-gray-700 font-medium mb-2" for="details">
+                        Details *
+                        <span class="text-gray-500 text-sm">(Max 255 characters)</span>
+                    </label>
                     <textarea
-                        name="message"
-                        rows="5"
-                        placeholder="Tell us what you liked or what we can improve..."
+                        id="details"
+                        name="details"
+                        rows="4"
+                        maxlength="255"
                         class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                        placeholder="Describe your feedback in detail..."
                         required
-                    ></textarea>
+                    >{{ old('details') }}</textarea>
+                    <div class="text-right text-xs text-gray-500 mt-1">
+                        <span id="charCount">255</span> characters remaining
+                    </div>
                 </div>
 
-                <!-- Optional: Contact Info -->
+                <!-- Location -->
                 <div>
-                    <label class="block text-gray-700 font-medium mb-2">Email (optional, if you'd like a response)</label>
+                    <label class="block text-gray-700 font-medium mb-2" for="location">
+                        Location *
+                    </label>
                     <input
-                        type="email"
-                        name="email"
-                        placeholder="you@example.com"
+                        type="text"
+                        id="location"
+                        name="location"
+                        value="{{ old('location') }}"
                         class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                        placeholder="e.g. Jakarta, Indonesia"
+                        required
                     />
                 </div>
 
-                <!-- Submit -->
+                <!-- Submit Button -->
                 <div class="pt-4">
                     <button
                         type="submit"
@@ -81,18 +118,31 @@
         </form>
 
         <div class="text-center text-gray-500 text-sm mt-8">
-            <p>Your feedback is anonymous unless you provide your email.</p>
+            <p>All fields marked with * are required.</p>
         </div>
 
-                <form method="POST" action="{{ route('auth.logout') }}" class="inline">
-                    @csrf
-                    <button
-                        type="submit"
-                        class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
-                    >
-                        Logout
-                    </button>
-                </form>
+        <!-- Logout Form -->
+        <div class="text-center mt-6">
+            <form method="POST" action="{{ route('auth.logout') }}" class="inline">
+                @csrf
+                <button
+                    type="submit"
+                    class="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 text-sm"
+                >
+                    Logout
+                </button>
+            </form>
+        </div>
     </div>
+
+    <!-- Optional: Character counter for details -->
+    <script>
+        document.getElementById('details').addEventListener('input', function () {
+            const maxLength = 255;
+            const currentLength = this.value.length;
+            const remaining = maxLength - currentLength;
+            document.getElementById('charCount').textContent = remaining;
+        });
+    </script>
 </body>
 </html>

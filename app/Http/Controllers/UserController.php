@@ -14,13 +14,15 @@ class UserController extends Controller
 {
     public function createStudent(CreateStudentRequest $request)
     {
-        return back()->with(User::create($request->validated()));
+        User::create($request->validated());
+        return back()->with('success', 'Student Created Sucessfully');
     }
 
     public function createAdmin(CreateAdminRequest $request)
     {
         $fields = $request->validated();
         $fields['role'] = UserRole::Admin->value;
-        return back()->with(User::create($fields));
+        User::create($fields);
+        return back()->with('success', 'Student Created Sucessfully');
     }
 }

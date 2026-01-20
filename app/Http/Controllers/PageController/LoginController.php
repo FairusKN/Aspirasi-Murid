@@ -9,6 +9,6 @@ class LoginController extends Controller
 {
     public function __invoke()
     {
-        return Auth::check() ? redirect()->route('page.dashboard') : view('auth.login');
+        return Auth::check() ? redirect()->route('pages.dashboard') : view('auth.login');
     }
 }

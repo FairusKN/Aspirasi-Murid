@@ -14,7 +14,9 @@ class DashboardController extends Controller
 
         return match ($user->role) {
             UserRole::Admin->value => view('admin.dashboard'),
-            UserRole::Student->value => view('student.dashboard')
+            UserRole::Student->value => view('student.dashboard'),
+            UserRole::SuperAdmin->value => redirect()->route('pages.createAdmin'),
+            default => abort(403, 'Unauthorized')
         };
     }
 }

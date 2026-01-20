@@ -24,6 +24,6 @@ class CategoryController extends Controller
     public function deleteCategory(Category $category)
     {
         $category->delete();
-        return redirect()->route('page.dashboard');
+        return redirect()->route('pages.dashboard');
     }
 }

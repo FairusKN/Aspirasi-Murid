@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Your Laravel App</title>
+    <title>Create Admin Account - Your Laravel App</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
         }
 
         body {
-            background: #E8F1F2;
+            background: linear-gradient(135deg, #ff7eb3, #ff6a00);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -22,7 +22,7 @@
         }
 
         .login-container {
-            background: #FFFFFF;
+            background: white;
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             width: 100%;
@@ -75,7 +75,7 @@
         }
 
         .btn-login {
-            background: #1B98E0;
+            background: linear-gradient(to left, #ff7eb3, #ff6a00);
             color: white;
             border: none;
             width: 100%;
@@ -122,11 +122,33 @@
     <div class="login-container">
         <div class="login-header">
             <h1>Welcome Back</h1>
-            <p>Sign in to your account</p>
+                <form method="POST" action="{{ route('auth.logout') }}" class="inline">
+                    @csrf
+                    <button
+                        type="submit"
+                        class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+                    >
+                        Logout
+                    </button>
+                </form>
         </div>
 
-        <form method="POST" action="{{ route('auth.login')}}">
+        <form method="POST" action="{{ route('users.createAdmin')}}">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+
+            <div class="form-group">
+                <label for="username">Full Name</label>
+                <input
+                    type="text"
+                    id="full_name"
+                    name="full_name"
+                    class="form-control"
+                    placeholder="John Doe"
+                    required
+                >
+                <x-input-error field="full_name" />
+            </div>
 
             <div class="form-group">
                 <label for="username">Username</label>
@@ -154,9 +176,10 @@
                 <x-input-error field="password" />
             </div>
 
-            <button type="submit" class="btn-login">Sign In</button>
+            <button type="submit" class="btn-login">Create Admin</button>
 
         </form>
+        <x-submit-success />
 
         @if ($errors->has('error'))
             <div style="color: red; margin-bottom: 8px; text-align:center; margin-top:20px;">
