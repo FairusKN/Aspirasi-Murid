@@ -17,6 +17,7 @@ return new class extends Migration
             $table->uuid("id")->primary();
             $table->foreignUuid('admin_id')->constrained('users')->cascadeOnDelete();
             $table->enum("action", array_column(LogAction::cases(), 'value'));
+            $table->string('details')->nullable();
             $table->string("admin_ip");
             $table->timestamps();
         });
