@@ -32,7 +32,7 @@ class FeedbackController extends Controller
         return back()->with('Success updated feedback');
     }
 
-    public function delete(Feedback $feedback)
+    public function destroy(Feedback $feedback)
     {
         $this->authorize('isUserCreateThisFeedback', $feedback);
         $feedback->delete();
