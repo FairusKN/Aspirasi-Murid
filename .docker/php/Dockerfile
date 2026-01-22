@@ -20,9 +20,14 @@ RUN apt-get install -y libicu-dev \
   && docker-php-ext-install intl
 
 # gd
-RUN apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev && \
-docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ && \
-docker-php-ext-install gd
+#RUN apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev && \
+#docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ && \
+#docker-php-ext-install gd
+
+#imagick
+RUN apt-get install -y libmagickwand-dev; \
+    pecl install imagick; \
+    docker-php-ext-enable imagick;
 
 # redis
 RUN pecl install redis && docker-php-ext-enable redis
