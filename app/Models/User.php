@@ -53,4 +53,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Feedback::class, 'user_id');
     }
+
+    public function hasComment(): HasMany
+    {
+        return $this->hasMany(Comment::class, "user_id");
+    }
+
+    public function hasLog(): HasMany
+    {
+        return $this->hasMany(AutditLog::class, "admin_id");
+    }
 }

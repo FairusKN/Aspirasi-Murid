@@ -22,27 +22,58 @@ class FeedbackController extends Controller
     public function create(CreateFeedbackRequest $request)
     {
         $this->feedbackService->create($request->validated());
-        return back()->with('Success creating feedback');
+        return back()->with(
+            "success",
+            __(
+                'messages.created',
+                [
+                    'attribute' => __('models.feedback')
+                ]
+            )
+        );
     }
 
     public function update(UpdateFeedbackRequest $request, Feedback $feedback)
     {
         $this->authorize('isUserCreateThisFeedback', $feedback);
         $feedback->update($request->validated());
-        return back()->with('Success updated feedback');
+        return back()->with(
+            "success",
+            __(
+                'messages.updated',
+                [
+                    'attribute' => __('models.feedback')
+                ]
+            )
+        );
     }
 
     public function destroy(Feedback $feedback)
     {
         $this->authorize('isUserCreateThisFeedback', $feedback);
         $feedback->delete();
-        return redirect()->intended('/dashboard');
+        return redirect()->route('pages.dashboard')->with(
+            "success",
+            __(
+                'messages.deleted',
+                [
+                    'attribute' => __('models.feedback')
+                ]
+            )
+        );
     }
 
-    public function updateStatus(UpdateResponseFeedbackRequest $request, Feedback $feedback)
+    public function adminResponse(UpdateResponseFeedbackRequest $request, Feedback $feedback)
     {
-        // Update Status Feedback Admin Only
         $feedback->update($request->validated());
-        return back();
+        return back()->with(
+            "success",
+            __(
+                'messages.updated',
+                [
+                    'attribute' => __('models.feedback')
+                ]
+            )
+        );
     }
 }

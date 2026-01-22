@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Enum\UserRole;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\User\CreateStudentRequest;
 use App\Http\Requests\User\CreateAdminRequest;
 
@@ -15,14 +14,31 @@ class UserController extends Controller
     public function createStudent(CreateStudentRequest $request)
     {
         User::create($request->validated());
-        return back()->with('success', 'Student Created Sucessfully');
+        return back()->with(
+            "success",
+            __(
+                'messages.created',
+                [
+                    'attribute' => __('models.student')
+                ]
+            )
+        );
     }
 
     public function createAdmin(CreateAdminRequest $request)
     {
-        $fields = $request->validated();
-        $fields['role'] = UserRole::Admin->value;
-        User::create($fields);
-        return back()->with('success', 'Student Created Sucessfully');
+        User::create(array_merge(
+            $request->validated(),
+            ["role" => UserRole::Admin->value]
+        ));
+        return back()->with(
+            "success",
+            __(
+                'messages.created',
+                [
+                    'attribute' => __('models.student')
+                ]
+            )
+        );
     }
 }

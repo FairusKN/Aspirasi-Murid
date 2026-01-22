@@ -11,20 +11,43 @@ class CategoryController extends Controller
 {
     public function create(CreateCategoryRequest $request)
     {
-        // return the create data from req
-        return back()->with(Category::create($request->validated()));
+        Category::create($request->validated());
+        return back()->with(
+            "success",
+            __(
+                'messages.created',
+                [
+                    'attribute' => __('models.category')
+                ]
+            )
+        );
     }
 
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        // return the updated data from req
-        return back()->with($category->update($request->validated));
+        $category->update($request->validated());
+        return back()->with(
+            "success",
+            __(
+                'messages.updated',
+                [
+                    'attribute' => __('models.category')
+                ]
+            )
+        );
     }
 
     public function destroy(Category $category)
     {
-        // delete the data then return to dashboard
         $category->delete();
-        return redirect()->route('pages.dashboard');
+        return redirect()->route('pages.dashboard')->with(
+            "success",
+            __(
+                'messages.deleted',
+                [
+                    'attribute' => __('models.category')
+                ]
+            )
+        );
     }
 }

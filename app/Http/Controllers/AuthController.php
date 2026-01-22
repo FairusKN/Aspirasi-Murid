@@ -17,7 +17,7 @@ class AuthController extends Controller
             return redirect()->intended('/dashboard');
         }
 
-        return back()->withErrors(['error' => 'Invalid credentials']);
+        return back()->withErrors(['error' => __('auth.failed')]);
     }
 
     public function logout(Request $request)
