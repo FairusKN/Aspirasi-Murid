@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 use App\Models\Feedback;
 use App\Service\FeedbackService;
+use App\Service\ImageService;
 
 use App\Http\Requests\Feedback\CreateFeedbackRequest;
 use App\Http\Requests\Feedback\UpdateFeedbackRequest;
@@ -16,7 +17,8 @@ class FeedbackController extends Controller
     use AuthorizesRequests;
 
     public function __construct(
-        protected FeedbackService $feedbackService
+        protected FeedbackService $feedbackService,
+        protected ImageService $imageService
     ) {}
 
     public function create(CreateFeedbackRequest $request)
@@ -51,7 +53,7 @@ class FeedbackController extends Controller
     public function destroy(Feedback $feedback)
     {
         $this->authorize('isUserCreateThisFeedback', $feedback);
-        $feedback->delete();
+        $this->feedbackService->destroy($feedback);
         return redirect()->route('pages.dashboard')->with(
             "success",
             __(
