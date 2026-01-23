@@ -22,7 +22,5 @@ class AdminDashboardService
         if (isset($filter['feedback_title'])) {
             $query->where('feedback_title', $filter['feedback_title']);
         }
-
-        if(isset($filter['status']))
     }
 }
