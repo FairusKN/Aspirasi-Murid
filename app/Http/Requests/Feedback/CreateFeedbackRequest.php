@@ -26,7 +26,9 @@ class CreateFeedbackRequest extends FormRequest
             'feeedback_title' => "required|string",
             'category_id' => 'required|exists:category,id',
             'details' => 'required|string|max:255',
-            'location' => 'required|string'
+            'location' => 'required|string',
+            'anonymous' => 'nullable|bool',
+            'image' => 'nullable|mimes:jpg,png,jpeg,webp|max:5120'
         ];
     }
 }
