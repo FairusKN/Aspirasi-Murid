@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('details');
             $table->string('location');
             $table->enum('status', array_column(FeedbackStatus::cases(), 'value'))->default(FeedbackStatus::Waiting->value);
+            $table->boolean('anonymous')->default(false);
             $table->text('admin_response')->nullable();
             $table->timestamps();
         });

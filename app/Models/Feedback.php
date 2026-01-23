@@ -16,11 +16,9 @@ class Feedback extends Model
         'details',
         'location',
         'status',
-        'user_id'
-    ];
-
-    protected $casts = [
-        'user_id' => 'string',
+        'user_id',
+        'anonymous',
+        'admin_response'
     ];
 
     public function student(): BelongsTo
