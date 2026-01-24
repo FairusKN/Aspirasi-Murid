@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum("role", array_column(UserRole::cases(), 'value'))->value(UserRole::Student->value);
             $table->string("nis")->nullable(true)->unique();
             $table->string('password');
+            $table->boolean('is_active')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });
