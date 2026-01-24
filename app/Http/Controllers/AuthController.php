@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -13,6 +14,9 @@ class AuthController extends Controller
         $fields = $request->validated();
 
         if (Auth::attempt($fields)) {
+            // Check if user is active
+            if (!User::where('username', $fields['username'])->is_active) return back()->withErrors(['error' => __("auth.not_active")]);
+
             $request->session()->regenerate();
             return redirect()->intended('/dashboard');
         }
