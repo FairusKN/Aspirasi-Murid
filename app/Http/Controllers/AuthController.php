@@ -15,7 +15,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($fields)) {
             // Check if user is active
-            if (!User::where('username', $fields['username'])->is_active) return back()->withErrors(['error' => __("auth.not_active")]);
+            if (!User::where('username', $fields['username'])->first()->is_active) return back()->withErrors(['error' => __("auth.not_active")]);
 
             $request->session()->regenerate();
             return redirect()->intended('/dashboard');
