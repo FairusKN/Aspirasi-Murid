@@ -16,6 +16,6 @@ class Category extends Model
 
     public function feedbacks(): HasMany
     {
-        return $this->hasMany(Feedback::class);
+        return $this->hasMany(Feedback::class, "category_id");
     }
 }

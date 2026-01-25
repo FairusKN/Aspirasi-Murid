@@ -2,11 +2,13 @@
 
 namespace App\Service\Dashboard;
 
-use App\Models\User;
 use App\Models\Feedback;
+use App\Enum\FeedbackStatus;
 
 class AdminDashboardService
 {
+    protected array $data;
+
     /**
      * Create a new class instance.
      */
@@ -15,12 +17,15 @@ class AdminDashboardService
         //
     }
 
-    public function makeFilterQuery(array $filter)
+    public function __invoke()
     {
-        $query = Feedback::query();
+        $this->data["total_feedback"] =  Feedback::count();
+        $this->data["total_feedback_completed"] = Feedback::where("status", FeedbackStatus::Complete->value)->count();
+        $this->data["total_feedback_in_progress"] = Feedback::where("status", FeedbackStatus::Processing->value)->count();
+        $this->data["total_feedback_waiting"] = Feedback::where("status", FeedbackStatus::Waiting->value)->count();
 
-        if (isset($filter['feedback_title'])) {
-            $query->where('feedback_title', $filter['feedback_title']);
-        }
+        $this->data["recent_feedback"] = Feedback::latest()->take(6)->get();
+
+        return $this->data;
     }
 }

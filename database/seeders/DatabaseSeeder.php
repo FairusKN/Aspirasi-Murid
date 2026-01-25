@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Feedback;
+use App\Models\Category;
+
 use Illuminate\Database\Seeder;
 use App\Enum\UserRole;
 
@@ -33,11 +35,25 @@ class DatabaseSeeder extends Seeder
         ]);
 
         //student
-        User::create([
+        $student =  User::create([
             'username' => 'teststudent',
             'full_name' => 'student test',
             'role' => UserRole::Student->value,
             'password' => 'testlmao'
+        ]);
+
+        //Feedback
+        $category = Category::create([
+            "name" => "test",
+            "details" => "testlmao"
+        ]);
+
+        Feedback::create([
+            'user_id' => $student->id,
+            'category_id' => $category->id,
+            "feeedback_title" => "test tittle",
+            "details" => "test details",
+            "location" => "test location",
         ]);
     }
 }
