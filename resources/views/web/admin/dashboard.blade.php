@@ -10,26 +10,26 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20 mt-10">
             <!-- Total Feedback Card -->
             <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
-                <h3 class="text-sm font-medium text-gray-500 mb-2">Total Feedback</h3>
-                <p class="text-3xl font-bold text-gray-800">742</p>
+                <h3 class="text-sm font-medium text-gray-500 mb-2">{{ __('dashboard.total_feedback') }}</h3>
+                <p class="text-3xl font-bold text-gray-800">{{$data['total_feedback']}}</p>
             </div>
 
             <!-- Total Feedback Completed Card -->
             <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
-                <h3 class="text-sm font-medium text-gray-500 mb-2">Total Feedback Completed</h3>
-                <p class="text-3xl font-bold text-green-600">563</p>
+                <h3 class="text-sm font-medium text-gray-500 mb-2">{{ __('dashboard.total_feedback_completed') }}</h3>
+                <p class="text-3xl font-bold text-green-600">{{$data['total_feedback_completed']}}</p>
             </div>
 
             <!-- Total Feedback In Progress Card -->
             <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
-                <h3 class="text-sm font-medium text-gray-500 mb-2">Total Feedback In Progress</h3>
-                <p class="text-3xl font-bold text-yellow-600">79</p>
+                <h3 class="text-sm font-medium text-gray-500 mb-2">{{ __('dashboard.total_feedback_in_progress') }}</h3>
+                <p class="text-3xl font-bold text-yellow-600">{{$data['total_feedback_in_progress']}}</p>
             </div>
 
             <!-- Total Feedback Waiting Card -->
             <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
-                <h3 class="text-sm font-medium text-gray-500 mb-2">Total Feedback Waiting</h3>
-                <p class="text-3xl font-bold text-red-600">100</p>
+                <h3 class="text-sm font-medium text-gray-500 mb-2">{{ __('dashboard.total_feedback_waiting') }}</h3>
+                <p class="text-3xl font-bold text-red-600">{{$data['total_feedback_waiting']}}</p>
             </div>
         </div>
 

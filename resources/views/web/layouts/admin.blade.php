@@ -19,10 +19,45 @@
             <!-- Navigation Links - Centered -->
             <div class="absolute left-1/2 transform -translate-x-1/2">
                 <div class="flex space-x-8">
-                    <a href="#" class="hover:text-yellow-300 transition-colors duration-200">Dashboard</a>
-                    <a href="#" class="hover:text-yellow-300 transition-colors duration-200">Feedbacks</a>
-                    <a href="#" class="hover:text-yellow-300 transition-colors duration-200">Students</a>
-                    <a href="#" class="hover:text-yellow-300 transition-colors duration-200">Logs</a>
+                  <a
+                    href="{{ route('pages.dashboard') }}"
+                    class="group relative inline-block hover:text-[#1B98E0] transition-colors duration-200"
+                  >
+                    Dashboard
+                    <span
+                      class="absolute left-0 -bottom-1 h-0.5 w-0 bg-[#1B98E0] transition-all duration-300 group-hover:w-full"
+                    ></span>
+                  </a>
+
+                  <a
+                    href="#"
+                    class="group relative inline-block hover:text-[#1B98E0] transition-colors duration-200"
+                  >
+                    Feedbacks
+                    <span
+                      class="absolute left-0 -bottom-1 h-0.5 w-0 bg-[#1B98E0] transition-all duration-300 group-hover:w-full"
+                    ></span>
+                  </a>
+
+                  <a
+                    href="#"
+                    class="group relative inline-block hover:text-[#1B98E0] transition-colors duration-200"
+                  >
+                    Students
+                    <span
+                      class="absolute left-0 -bottom-1 h-0.5 w-0 bg-[#1B98E0] transition-all duration-300 group-hover:w-full"
+                    ></span>
+                  </a>
+
+                  <a
+                    href="#"
+                    class="group relative inline-block hover:text-[#1B98E0] transition-colors duration-200"
+                  >
+                    Logs
+                    <span
+                      class="absolute left-0 -bottom-1 h-0.5 w-0 bg-[#1B98E0] transition-all duration-300 group-hover:w-full"
+                    ></span>
+                  </a>
                 </div>
             </div>
 
