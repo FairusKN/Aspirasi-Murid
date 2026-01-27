@@ -5,11 +5,13 @@ use Illuminate\Support\Facades\Route;
 // Logic
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FeedbackController;
 
 // Page COntroller
 use App\Http\Controllers\PageController\LoginController;
 use App\Http\Controllers\PageController\CreateAdminController;
 use App\Http\Controllers\PageController\DashboardController;
+use App\Http\Controllers\PageController\FeedbackPageController;
 
 Route::get('/', function () {
     return redirect()->route('pages.login');
@@ -34,5 +36,8 @@ Route::middleware(['auth', 'is_active'])->group(function () {
         Route::post('/create_student', [UserController::class, 'create_student'])->name('users.createStudent');
     });
 
-    Route::prefix('/feedbacks')->middleware("throttle:150,1")->group(function () {});
+    Route::prefix('/feedbacks')->middleware(['throttle:150,1'])->group(function () {
+        Route::get('/', FeedbackPageController::class)->name('pages.feedback');
+        Route::post('/', [FeedbackController::class, 'create'])->name('feedbacks.create');
+    });
 });

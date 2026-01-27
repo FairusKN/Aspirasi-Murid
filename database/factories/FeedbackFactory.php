@@ -23,13 +23,13 @@ class FeedbackFactory extends Factory
         return [
             'user_id' => User::factory()->create()->id,
             'category_id' => Category::factory()->create()->id,
-            'feeedback_title' => fake()->unique()->words(2, true),
-            'details' => fake()->paragraph(),
+            'feedback_title' => fake()->unique()->words(2, true),
+            'details' => fake()->text(200),
             'location' => fake()->locale(),
             'status' => fake()->randomElement(FeedbackStatus::class),
             'anonymous' => fake()->boolean(),
             'image' => fake()->filePath(),
-            'admin_response' => fake()->boolean() ? fake()->paragraph() : ""
+            'admin_response' => fake()->boolean() ? fake()->text(200) : ""
         ];
     }
 }

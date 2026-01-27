@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid("id")->primary();
             $table->foreignUuid('user_id')->constrained('users');
             $table->foreignId('category_id')->constrained('categories');
-            $table->string('feeedback_title');
+            $table->string('feedback_title');
             $table->text('details');
             $table->string('location');
             $table->enum('status', array_column(FeedbackStatus::cases(), 'value'))->default(FeedbackStatus::Waiting->value);

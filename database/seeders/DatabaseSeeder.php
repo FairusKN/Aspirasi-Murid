@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'teststudent',
             'full_name' => 'student test',
             'role' => UserRole::Student->value,
+            'class' => "XII - RPL 1",
             'password' => 'testlmao'
         ]);
 

@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @yield('title')
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    @yield('header')
 </head>
 <body class="bg-[#E8F1F2]">
     <header>
@@ -30,10 +30,10 @@
                   </a>
 
                   <a
-                    href="#"
+                    href="{{ route('pages.feedback')}}"
                     class="group relative inline-block hover:text-[#1B98E0] transition-colors duration-200"
                   >
-                    Feedbacks
+                    Feedback
                     <span
                       class="absolute left-0 -bottom-1 h-0.5 w-0 bg-[#1B98E0] transition-all duration-300 group-hover:w-full"
                     ></span>
@@ -43,7 +43,7 @@
                     href="#"
                     class="group relative inline-block hover:text-[#1B98E0] transition-colors duration-200"
                   >
-                    Students
+                    Student
                     <span
                       class="absolute left-0 -bottom-1 h-0.5 w-0 bg-[#1B98E0] transition-all duration-300 group-hover:w-full"
                     ></span>
@@ -53,7 +53,7 @@
                     href="#"
                     class="group relative inline-block hover:text-[#1B98E0] transition-colors duration-200"
                   >
-                    Logs
+                    Log
                     <span
                       class="absolute left-0 -bottom-1 h-0.5 w-0 bg-[#1B98E0] transition-all duration-300 group-hover:w-full"
                     ></span>
