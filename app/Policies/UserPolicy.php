@@ -19,36 +19,20 @@ class UserPolicy
 
     public function create(User $actor, User $target): bool | RedirectResponse
     {
-        // Punish Superadmin creation
-        if ($target->role === UserRole::SuperAdmin->value) return redirect()->away('https://en.wikipedia.org/wiki/Loser');
-
-        if ($target->role === UserRole::Admin->value) return $actor->role === UserRole::SuperAdmin->value;
-
-        if ($target->actor === UserRole::Student->value) {
-            return in_array($actor->role, [
-                UserRole::SuperAdmin->value,
-                UserRole::Admin->value
-            ]);
-        }
-
-        return false;
+        return match ($target->role) {
+            UserRole::SuperAdmin->value => redirect()->away('https://en.wikipedia.org/wiki/Loser'), // Punish for SuperAdmin Creation
+            UserRole::Admin->value => $actor->role === UserRole::SuperAdmin->value, // if target = admin, is actor role == superadmin?
+            UserRole::Student->value => $actor->role !== UserRole::Student->value, // if target = student, is actor role != student ?
+            default => false
+        };
     }
 
     public function deactivate(User $actor, User $target): bool
     {
-        // no self-deactivation
-        if ($actor->id === $target->id) {
-            return false;
-        }
-
-        if ($actor->role === UserRole::SuperAdmin->value) {
-            return $actor->role !== $target->role;
-        }
-
-        if ($actor->role === UserRole::Admin->value) {
-            return $target->role === UserRole::Student->value;
-        }
-
-        return false;
+        return match ($actor->role) {
+            UserRole::SuperAdmin->value => $actor->role !== $target->role, // SuperAdmin can deactivate anyone below them
+            UserRole::Admin->value => $target->role === UserRole::Student->value, // admin can deactivate student only
+            default => false
+        };
     }
 }
