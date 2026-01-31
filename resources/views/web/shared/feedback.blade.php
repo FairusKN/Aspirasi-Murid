@@ -1,7 +1,7 @@
 @extends('web.layouts.admin')
 
 @section('header')
-    <title>Admin Feedback</title>
+    <title>Feedback</title>
     <script>
       tailwind.config = {
         theme: {
@@ -26,7 +26,7 @@
 @endsection
 
 @section('content')
-<div class="p-8 mt-16 h-screen ">
+<div class="p-8 mt-10">
 
     <!-- Card -->
     <div class="bg-white rounded-xl shadow-sm border border-gray-200">
@@ -95,6 +95,11 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="px-6 py-4 ">
+                <div >
+                    {{ $data->links('pagination::tailwind') }}
+                </div>
+            </div>
         </div>
     </div>
 </div>

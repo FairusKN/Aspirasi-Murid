@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     @yield('header')
 </head>
-<body class="bg-[#E8F1F2]">
+<body class="bg-[#E8F1F2] min-h-screen">
     <header>
         <nav class="bg-[#1a2b45] text-white px-6 py-3 flex items-center justify-between border-b border-blue-300">
             <!-- Logo Section -->
             <div class="flex items-center ml-3 p-2">
                 <img src="https://placehold.co/40x40/FFD700/000000?text=Logo" alt="Logo" class="h-10 w-10 rounded-full">
-                <span class="font-semibold text-lg ml-3">SMK Merdeka Bandung</span>
+                <span class="font-semibold text-lg ml-3">school name</span>
             </div>
 
             <!-- Navigation Links - Centered -->

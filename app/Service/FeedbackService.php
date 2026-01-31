@@ -8,7 +8,8 @@ use App\Service\ImageService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\File;
+
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class FeedbackService
 {
@@ -90,14 +91,68 @@ class FeedbackService
     }
 
     /**
+     *
+     * Get a feedback in Pagination type.
+     *
+     * @param array $filter
+     * @return LengthAwarePaginator
+     *
+     * Query Filter:
+     * category, feedback_title, location, anonymous, status, has_image
+     *
+     */
+    public function feedbackPaginationQuery(array $filter): LengthAwarePaginator
+
+    {
+        $query = Feedback::query()
+
+            // If User is a superAdmin, User can see the anonym student
+            //->when(
+            //    Auth::user()->role === UserRole::SuperAdmin->value,
+            //    fn($q) => $q->with('student')->when(
+            //        isset($filter['student_name']),
+            //        fn($q) => $q->whereRelation('student', 'full_name', 'ILIKE', "%" . $filter['student_name'] . '%')
+            //    )
+            //)
+            ->when(
+                isset($filter['category']),
+                fn($q) => $q->whereRelation('category', 'name', 'ILIKE', '%' . $filter['category'] . '%')
+            )
+            ->when(
+                isset($filter['feedback_title']),
+                fn($q) => $q->where('feedback_title', 'ILIKE', '%' . $filter['feedback_title'] . '%')
+            )
+            ->when(
+                isset($filter['location']),
+                fn($q) => $q->where('location', 'ILIKE', '%' . $filter['location'] . '%')
+            )
+            ->when(
+                isset($filter['anonymous']),
+                fn($q) => $q->where('anonymous', $filter['anonymous'])
+            )
+            ->when(
+                isset($filter['status']),
+                fn($q) => $q->where('status', $filter['status'])
+            )
+            ->when(
+                isset($filter['has_image']),
+                fn($q) => $q->whereNotNull('image')
+            );
+
+        $data = $query->paginate(10);
+
+        return $data;
+    }
+
+    /**
      * Check if directory exists. If not create one.
      *
      * @return void
      */
     private function ensureDirectoryExist(): void
     {
-        $path = $this->publicStorage  . "/" . $this->folder_name;
+        $path = "/" . $this->folder_name;
 
-        if (!File::isDirectory($path)) File::makeDirectory($path);
+        if (!$this->publicStorage->exists($path)) $this->publicStorage->makeDirectory($path);
     }
 }

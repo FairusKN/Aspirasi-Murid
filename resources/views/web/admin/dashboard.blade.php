@@ -2,6 +2,20 @@
 
 @section('header')
  <title> Admin Dashboard </title>
+    <script>
+      tailwind.config = {
+        theme: {
+            extend: {
+              colors: {
+                completed   : '#2E7D32',
+                in_progress : '#1B98E0',
+                waiting     : '#F9A825',
+                rejected    : '#C62828'
+              }
+            }
+        },
+      };
+    </script>
 @endsection
 
 @section('content')
@@ -48,7 +62,7 @@
                             <span class="text-sm text-gray-600">{{$feedback->category->name}}</span>
                         </div>
                         <div class="flex items-center">
-                            <div class="w-3 h-3 bg-gray-300 rounded-full mr-2"></div>
+                            <div class="w-3 h-3 bg-{{$feedback->status}} rounded-full mr-2"></div>
                             <span class="text-sm text-gray-600">{{$feedback->status}}</span>
                         </div>
                     </div>
