@@ -1,5 +1,9 @@
 <?php
 return [
+    //Title
+    'heading' => 'Feedback',
+    'sub_title' => 'All available Feedbacks',
+
     // Table Header
     'student_name' => 'Student Name',
     'title' => "Title",

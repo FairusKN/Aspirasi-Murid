@@ -1,6 +1,10 @@
 <?php
 
 return [
+    //Title
+    'heading' => 'Aspirasi',
+    'sub_title' => 'Semua Aspirasi yang tersedia',
+
     // Table Header
     'student_name' => 'Nama Murid',
     'title' => "Judul",

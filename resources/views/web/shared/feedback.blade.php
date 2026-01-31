@@ -34,8 +34,8 @@
         <!-- Header -->
         <div class="flex items-center justify-between px-6 py-4 border-b">
             <div>
-                <h2 class="text-lg font-semibold text-gray-800">Feedback</h2>
-                <p class="text-sm text-gray-500">All available Feedbacks</p>
+                <h2 class="text-lg font-semibold text-gray-800">{{__('feedback.heading')}}</h2>
+                <p class="text-sm text-gray-500">{{__('feedback.sub_title')}}</p>
             </div>
         </div>
 
