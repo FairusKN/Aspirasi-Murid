@@ -20,16 +20,23 @@ class UserService
 
     /**
      *
-     *  Deactivate a User
+     *  Activate toggle for User
      *
-     *  @param User $userToDeactivate
+     *  @param User $userToChange
      *  @return User
      *
+     *  if  a User is_active, it'll become false
+     *  Else it'll become true
+     *
      */
-    public function deactivateUser(User $userToDeactivate): User
+    public function activateToggle(User $userToChange): bool
     {
-        $userToDeactivate->update(['is_active' => false]);
-        return $userToDeactivate->fresh();
+        $userToChange->update([
+            // If is_active is true, then it will become false
+            // Else it will become True
+            'is_active' => $userToChange->is_active ? false : true
+        ]);
+        return $userToChange->fresh()->is_active;
     }
 
     /**

@@ -27,7 +27,7 @@ class UserPolicy
         };
     }
 
-    public function deactivate(User $actor, User $target): bool
+    public function canActivateToggle(User $actor, User $target): bool
     {
         return match ($actor->role) {
             UserRole::SuperAdmin->value => $actor->role !== $target->role, // SuperAdmin can deactivate anyone below them

@@ -18,13 +18,7 @@ class UserController extends Controller
 
     public function __construct(protected UserService $userService) {}
 
-    /**
-     *  Invoke a Student Page with admin-only permission
-     *
-     *  @param FilterUserRequest $request
-     *  @return View
-     */
-    public function __invoke(FilterUserRequest $request): View
+    public function show(FilterUserRequest $request): View
     {
         return view('pages.student')
             ->with('data', $this->userService->userPaginationQuery($request->validated()));
@@ -44,18 +38,18 @@ class UserController extends Controller
         );
     }
 
-    public function deactivate(User $user): RedirectResponse
+    public function activateToggle(User $user): RedirectResponse
     {
-        $this->authorize('deactivate', $user);
-        $this->userService->deactivateUser($user);
+        $this->authorize('canActivateToggle', $user);
+        $isActivated = $this->userService->activateToggle($user);
 
         return back()->with(
             'success',
             __(
-                'messages.deactivated',
-                [
-                    'attribute' => __('models.' . $user->role)
-                ]
+                // If return true, user is reactivated because of the fresh/current data
+                // else return false, user is deactivated
+                $isActivated ? 'messages.reactivated' : 'messages.deactivated',
+                ['attribute' => __('models.' . $user->role)]
             )
         );
     }

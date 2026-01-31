@@ -24,9 +24,13 @@ Route::prefix("/auth")->group(function () {
 Route::middleware(['auth', 'is_active'])->group(function () {
     Route::get("/dashboard", DashboardController::class)->name('pages.dashboard');
 
-    Route::prefix('/users')->group(function () {});
+    Route::prefix('/users')->group(function () {
+        Route::get("/", [UserController::class, "show"])->name('pages.users');
+        Route::post("/create", [UserController::class, "create"])->name('users.create');
+        Route::post("/{user}/toggle-activate", [UserController::class, 'activateToggle'])->name('users.toggle_activate');
+    });
 
-    Route::prefix('/feedbacks')->middleware(['throttle:150,1'])->group(function () {
+    Route::prefix('/feedbacks')->middleware('throttle:80,1')->group(function () {
         Route::get('/', [FeedbackController::class, 'show'])->name('pages.feedback');
         Route::get('/{feedback}', [FeedbackController::class, 'index'])->name('pages.detailed_feedback')
             ->whereUuid('feedback');
