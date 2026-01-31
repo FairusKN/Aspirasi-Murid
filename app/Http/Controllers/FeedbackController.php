@@ -11,6 +11,10 @@ use App\Service\ImageService;
 use App\Http\Requests\Feedback\CreateFeedbackRequest;
 use App\Http\Requests\Feedback\UpdateFeedbackRequest;
 use App\Http\Requests\Feedback\UpdateResponseFeedbackRequest;
+use App\Http\Requests\Feedback\AdminFilterFeedbackRequest;
+
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class FeedbackController extends Controller
 {
@@ -21,7 +25,23 @@ class FeedbackController extends Controller
         protected ImageService $imageService
     ) {}
 
-    public function create(CreateFeedbackRequest $request)
+    public function index(Feedback $feedback): View
+    {
+        dd($feedback);
+        return view('web.shared.detailed_feedback')
+            ->with('data', $feedback->load('comments'));
+    }
+
+    public function show(AdminFilterFeedbackRequest $request): View
+    {
+        return view('web.shared.feedback')
+            ->with(
+                'data',
+                $this->feedbackService->feedbackPaginationQuery($request->validated())
+            );
+    }
+
+    public function create(CreateFeedbackRequest $request): RedirectResponse
     {
         $this->feedbackService->create($request->validated());
         return back()->with(
@@ -35,7 +55,7 @@ class FeedbackController extends Controller
         );
     }
 
-    public function update(UpdateFeedbackRequest $request, Feedback $feedback)
+    public function update(UpdateFeedbackRequest $request, Feedback $feedback): RedirectResponse
     {
         $this->authorize('isUserCreateThisFeedback', $feedback);
         $feedback->update($request->validated());
@@ -50,7 +70,7 @@ class FeedbackController extends Controller
         );
     }
 
-    public function destroy(Feedback $feedback)
+    public function destroy(Feedback $feedback): RedirectResponse
     {
         $this->authorize('isUserCreateThisFeedback', $feedback);
         $this->feedbackService->destroy($feedback);
@@ -65,7 +85,7 @@ class FeedbackController extends Controller
         );
     }
 
-    public function adminResponse(UpdateResponseFeedbackRequest $request, Feedback $feedback)
+    public function adminResponse(UpdateResponseFeedbackRequest $request, Feedback $feedback): RedirectResponse
     {
         $feedback->update($request->validated());
         return back()->with(

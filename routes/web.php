@@ -9,9 +9,7 @@ use App\Http\Controllers\FeedbackController;
 
 // Page COntroller
 use App\Http\Controllers\PageController\LoginController;
-use App\Http\Controllers\PageController\CreateAdminController;
 use App\Http\Controllers\PageController\DashboardController;
-use App\Http\Controllers\PageController\FeedbackPageController;
 
 Route::get('/', function () {
     return redirect()->route('pages.login');
@@ -26,17 +24,12 @@ Route::prefix("/auth")->group(function () {
 Route::middleware(['auth', 'is_active'])->group(function () {
     Route::get("/dashboard", DashboardController::class)->name('pages.dashboard');
 
-    Route::prefix('/users')->group(function () {
-        #Super admin
-        Route::get("/create_admin", CreateAdminController::class)->name('pages.createAdmin');
-        Route::post("/create_admin", [UserController::class, 'createAdmin'])->name('users.createAdmin');
-    });
+    Route::prefix('/users')->group(function () {});
 
     Route::prefix('/feedbacks')->middleware(['throttle:150,1'])->group(function () {
-        Route::get('/', [FeedbackPageController::class, 'get'])->name('pages.feedback');
+        Route::get('/', [FeedbackController::class, 'show'])->name('pages.feedback');
+        Route::get('/{feedback}', [FeedbackController::class, 'index'])->name('page.detailed')
+            ->whereUuid('feedback');
         Route::post('/', [FeedbackController::class, 'create'])->name('feedbacks.create');
-
-        Route::get('/{id}', [FeedbackPageController::class, 'index'])->name('feedbacks.detailed')
-            ->whereUuid('id');
     });
 });
