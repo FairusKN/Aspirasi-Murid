@@ -30,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useTailwind();
 
         View::composer('*', function ($view) {
+            /** @disregard P1013 Undefined method */
             $view->with('authUser', auth()->user());
         });
     }
