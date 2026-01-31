@@ -28,7 +28,7 @@ Route::middleware(['auth', 'is_active'])->group(function () {
 
     Route::prefix('/feedbacks')->middleware(['throttle:150,1'])->group(function () {
         Route::get('/', [FeedbackController::class, 'show'])->name('pages.feedback');
-        Route::get('/{feedback}', [FeedbackController::class, 'index'])->name('page.detailed')
+        Route::get('/{feedback}', [FeedbackController::class, 'index'])->name('pages.detailed_feedback')
             ->whereUuid('feedback');
         Route::post('/', [FeedbackController::class, 'create'])->name('feedbacks.create');
     });

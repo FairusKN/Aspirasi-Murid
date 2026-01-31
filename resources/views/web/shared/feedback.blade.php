@@ -68,7 +68,9 @@
                             </td>
 
                             <td class="px-6 py-4 text-gray-700">
-                                {{Str::words($feedback->feedback_title, '50', "...")}}
+                                <a href="{{ route('pages.detailed_feedback', $feedback) }}">
+                                    {{Str::words($feedback->feedback_title, '50', "...")}}
+                                </a>
                             </td>
 
                             <td class="px-6 py-4 text-center">
