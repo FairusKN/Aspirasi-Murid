@@ -20,7 +20,7 @@ Route::get('/', function () {
 Route::prefix("/auth")->group(function () {
     Route::get("/login", LoginController::class)->name('pages.login');
     Route::post("/login", [AuthController::class, 'login'])->middleware("throttle:5,1")->name("auth.login");
-    Route::post("/logout", [AuthController::class, 'logout'])->name('auth.logout');
+    Route::get("/logout", [AuthController::class, 'logout'])->name('auth.logout');
 });
 
 Route::middleware(['auth', 'is_active'])->group(function () {
