@@ -30,10 +30,6 @@ Route::middleware(['auth', 'is_active'])->group(function () {
         #Super admin
         Route::get("/create_admin", CreateAdminController::class)->name('pages.createAdmin');
         Route::post("/create_admin", [UserController::class, 'createAdmin'])->name('users.createAdmin');
-
-        #Admin
-        //Route::get('/create_student') // Page here
-        Route::post('/create_student', [UserController::class, 'create_student'])->name('users.createStudent');
     });
 
     Route::prefix('/feedbacks')->middleware(['throttle:150,1'])->group(function () {

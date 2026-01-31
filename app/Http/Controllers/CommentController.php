@@ -37,7 +37,7 @@ class CommentController extends Controller
 
     public function destroy(Comment $comment)
     {
-        $this->authorize('isUserCreateThisComment');
+        $this->authorize('isUserCreateThisComment', $comment);
         $comment->delete();
         return redirect()->route("pages.dashboard")->with(
             "success",

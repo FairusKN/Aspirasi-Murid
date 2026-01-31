@@ -3,40 +3,43 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Enum\UserRole;
+use App\Service\UserService;
 
-use App\Http\Requests\User\CreateStudentRequest;
-use App\Http\Requests\User\CreateAdminRequest;
-
+use App\Http\Requests\User\CreateUserRequest;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\RedirectResponse;
 
 class UserController extends Controller
 {
-    public function createStudent(CreateStudentRequest $request)
+    use AuthorizesRequests;
+
+    public function __construct(protected UserService $userService) {}
+
+    public function create(CreateUserRequest $request): RedirectResponse
     {
-        User::create($request->validated());
+        $user = User::create($request->validated());
         return back()->with(
             "success",
             __(
                 'messages.created',
                 [
-                    'attribute' => __('models.student')
+                    'attribute' => __('models.' . $user->role)
                 ]
             )
         );
     }
 
-    public function createAdmin(CreateAdminRequest $request)
+    public function deactivate(User $user): RedirectResponse
     {
-        User::create(array_merge(
-            $request->validated(),
-            ["role" => UserRole::Admin->value]
-        ));
+        $this->authorize('deactivate', $user);
+        $this->userService->deactivateUser($user);
+
         return back()->with(
-            "success",
+            'success',
             __(
-                'messages.created',
+                'messages.deactivated',
                 [
-                    'attribute' => __('models.student')
+                    'attribute' => __('models.' . $user->role)
                 ]
             )
         );

@@ -49,7 +49,7 @@
 
         <!-- Recent Feedbacks Section -->
         <div class="mb-8">
-            <h2 class="text-xl font-bold text-gray-800 mb-6">Recent Feedbacks</h2>
+            <h2 class="text-xl font-bold text-gray-800 mb-6">{{__('dashboard.recent_feedbacks')}}</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach ($data['recent_feedback'] as $feedback)
                 <!-- Feedback Card 1 -->
@@ -66,7 +66,7 @@
                             <span class="text-sm text-gray-600">{{$feedback->status}}</span>
                         </div>
                     </div>
-                    <p class="text-xs text-gray-500">Created at: {{$feedback->created_at->format('d F Y')}}</p>
+                    <p class="text-xs text-gray-500">{{__('dashboard.created_at')}}: {{$feedback->created_at->format('d F Y')}}</p>
                 </div>
             @endforeach
 
