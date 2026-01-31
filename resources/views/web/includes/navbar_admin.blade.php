@@ -63,7 +63,7 @@
             <span class="sr-only">Open user menu</span>
             <img
                 class="w-9 h-9 rounded-full"
-                src="https://placehold.co/40x40/FFD700/000000?text=U"
+                src="https://placehold.co/40x40/FFD700/000000?text={{$authUser->full_name[0]}}"
                 alt="user photo"
             >
         </button>
@@ -79,7 +79,15 @@
             </div>
             <ul class="py-2 text-sm">
                 <li>
-                    <a href="{{route('auth.logout')}}" class="block px-4 py-2 hover:bg-gray-100">Sign out</a>
+                    <form method="POST" action="{{ route('auth.logout') }}">
+                        @csrf
+                        <button
+                            type="submit"
+                            class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                        >
+                            Sign out
+                        </button>
+                    </form>
                 </li>
             </ul>
         </div>
