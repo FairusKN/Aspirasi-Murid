@@ -6,5 +6,5 @@ return [
     'user' => "Pengguna",
     'feedback' => "Aspirasi",
     'category' => "Kategoru",
-    'comment' => "Komen"
+    'comment' => "Komen",
 ];

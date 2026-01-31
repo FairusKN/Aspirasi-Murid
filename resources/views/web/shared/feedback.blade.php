@@ -46,12 +46,12 @@
                 <!-- Head -->
                 <thead class="sticky top-0 bg-[#006494] z-10">
                     <tr class="text-[#E8F1F2] uppercase text-xs tracking-wider">
-                        <th class="px-6 py-3 text-left">Student Name</th>
-                        <th class="px-6 py-3 text-left">Title</th>
-                        <th class="px-6 py-3 text-center">Location</th>
-                        <th class="px-6 py-3 text-center">Date</th>
-                        <th class="px-6 py-3 text-center">Category</th>
-                        <th class="px-6 py-3 text-center">Status</th>
+                        <th class="px-6 py-3 text-left">{{__('feedback.student_name')}}</th>
+                        <th class="px-6 py-3 text-left">{{__('feedback.title')}}</th>
+                        <th class="px-6 py-3 text-center">{{__('feedback.location')}}</th>
+                        <th class="px-6 py-3 text-center">{{__('feedback.date')}}</th>
+                        <th class="px-6 py-3 text-center">{{__('feedback.category')}}</th>
+                        <th class="px-6 py-3 text-center">{{__('feedback.status')}}</th>
                     </tr>
                 </thead>
 
@@ -63,7 +63,7 @@
                         <tr class="group hover:bg-blue-50 transition">
                             <td class="px-6 py-4 flex items-center gap-3">
                                 <div>
-                                    <p class="font-medium text-gray-800">{{$feedback->anonymous ? "Anonymous" : $feedback->student->full_name }}</p>
+                                    <p class="font-medium text-gray-800">{{$feedback->anonymous ? __('feedback.anonymous') : $feedback->student->full_name }}</p>
                                 </div>
                             </td>
 
@@ -87,7 +87,7 @@
 
                             <td class="px-6 py-4 text-center transition">
                                 <span class="inline-flex px-3 py-1 rounded-full text-xs font-medium bg-{{$feedback->status}}-bg text-{{$feedback->status}}-text hover:bg-{{$feedback->status}}-bg/30 transition">
-                                    {{$feedback->status}}
+                                    {{__('feedback.' . $feedback->status)}}
                                 </span>
                                 </div>
                             </td>

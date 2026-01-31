@@ -6,5 +6,5 @@ return [
     'user' => "User",
     'feedback' => "Feedback",
     'category' => "Category",
-    'comment' => "Comment"
+    'comment' => "Comment",
 ];
