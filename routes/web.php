@@ -6,9 +6,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\ChatBotController;
 
 // Page COntroller
-use App\Http\Controllers\PageController\LoginController;
+use App\Http\Controllers\PageController\AuthPageController;
 use App\Http\Controllers\PageController\DashboardController;
 
 Route::get('/', function () {
@@ -16,8 +17,12 @@ Route::get('/', function () {
 });
 
 Route::prefix("/auth")->group(function () {
-    Route::get("/login", LoginController::class)->name('pages.login');
+    Route::get("/login", [AuthPageController::class, 'loginPage'])->name('pages.login');
     Route::post("/login", [AuthController::class, 'login'])->middleware("throttle:5,1")->name("auth.login");
+
+    Route::get('/register', [AuthPageController::class, 'registerPage'])->name('pages.register');
+    Route::post('/register', [AuthController::class, 'register'])->middleware('throttle:5,1')->name('auth.register');
+
     Route::post("/logout", [AuthController::class, 'logout'])->name('auth.logout');
 });
 
@@ -37,3 +42,5 @@ Route::middleware(['auth', 'is_active'])->group(function () {
         Route::post('/', [FeedbackController::class, 'create'])->name('feedbacks.create');
     });
 });
+
+Route::get('/chat/{prompt}', [ChatBotController::class, 'chatBot'])->name('ai');

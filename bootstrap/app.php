@@ -28,10 +28,8 @@ return Application::configure(basePath: dirname(__DIR__))
         //}
 
         $exceptions->render(function (Throwable $e) {
-
-            // Unauthenticated
             if ($e instanceof AuthenticationException) {
-                return redirect()->guest(route('auth.login'));
+                return back()->withErrors(['error' => $e->getMessage()]);
             };
         });
     })->create();

@@ -3,28 +3,52 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
+use App\Service\AuthService;
+
+use Illuminate\Http\RedirectResponse;
+
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Requests\Auth\VerifyEmailRequest;
+use App\Http\Requests\Auth\ResendVerifyEmailRequest;
 
 class AuthController extends Controller
 {
-    public function login(LoginRequest $request)
+    public function __construct(protected AuthService $authService) {}
+
+    public function register(RegisterRequest $request): RedirectResponse
     {
         $fields = $request->validated();
+        $this->authService->createUser($fields);
 
-        if (Auth::attempt($fields)) {
-            // Check if user is active
-            if (!User::where('username', $fields['username'])->first()->is_active) return back()->withErrors(['error' => __("auth.not_active")]);
-
-            $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
-        }
-
-        return back()->withErrors(['error' => __('auth.failed')]);
+        return back()->with('success', __('auth.regist_success'));
     }
 
-    public function logout(Request $request)
+    public function verifyEmail(VerifyEmailRequest $request): RedirectResponse
+    {
+        $fields = $request->validated();
+        $this->authService->verificationEmail($fields);
+        return redirect()->route('pages.login');
+    }
+
+    public function resend(ResendVerifyEmailRequest $request): RedirectResponse
+    {
+        $fields = $request->validated();
+        $this->authService->resendEmailVerification($fields);
+        return redirect()->route('pages.login');
+    }
+
+    public function login(LoginRequest $request): RedirectResponse
+    {
+        $fields = $request->validated();
+        $this->authService->tryLogin($fields);
+
+        $request->session()->regenerate();
+        return redirect()->route('pages.dashboard');
+    }
+
+    public function logout(Request $request): RedirectResponse
     {
         Auth::logout();
 
