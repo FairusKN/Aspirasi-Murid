@@ -42,16 +42,29 @@
 
             <!-- Table -->
             <div class="overflow-x-auto">
-                <table class="min-w-full text-sm">
+                <table class="min-w-full text-sm table-fixed">
 
                     <!-- Head -->
                     <thead class="sticky top-0 bg-[#006494] z-10">
-                        <tr class="text-[#E8F1F2] uppercase text-xs tracking-wider">
-                            <th class="px-6 py-3 text-left">{{__('feedback.student_name')}}</th>
-                            <th class="px-6 py-3 text-left">Email</th>
-                            <th class="px-6 py-3 text-center">NIS</th>
-                            <th class="px-6 py-3 text-center">Status</th>
-                        </tr>
+                    <tr class="text-[#E8F1F2] uppercase text-xs tracking-wider">
+
+                        <th class="px-6 py-3 text-left w-1/3">
+                            {{__('feedback.student_name')}}
+                        </th>
+
+                        <th class="px-6 py-3 text-left w-1/3">
+                            Email
+                        </th>
+
+                        <th class="px-6 py-3 text-center w-1/6">
+                            NIS
+                        </th>
+
+                        <th class="px-6 py-3 text-center w-1/6">
+                            Status
+                        </th>
+
+                    </tr>
                     </thead>
 
                     <!-- Body -->
