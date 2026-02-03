@@ -20,8 +20,12 @@ Route::prefix("/auth")->group(function () {
     Route::get("/login", [AuthPageController::class, 'loginPage'])->name('pages.login');
     Route::post("/login", [AuthController::class, 'login'])->middleware("throttle:5,1")->name("auth.login");
 
-    Route::get('/register', [AuthPageController::class, 'registerPage'])->name('pages.register');
-    Route::post('/register', [AuthController::class, 'register'])->middleware('throttle:5,1')->name('auth.register');
+    //Route::get('/register', [AuthPageController::class, 'registerPage'])->name('pages.register');
+    //Route::post('/register', [AuthController::class, 'register'])->middleware('throttle:5,1')->name('auth.register');
+
+    //Route::get("/email/verify", [AuthPageController::class, 'verifyPage'])->name('pages.verify');
+    //Route::post("/email/verify/{email}/{token}", [AuthController::class, 'verifyEmail'])->name('auth.verify.email');
+    //Route::post("/email/resend", [AuthController::class, "resend"])->name('auth.resend');
 
     Route::post("/logout", [AuthController::class, 'logout'])->name('auth.logout');
 });

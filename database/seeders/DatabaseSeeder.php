@@ -4,10 +4,10 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Feedback;
-use App\Models\Category;
 
 use Illuminate\Database\Seeder;
 use App\Enum\UserRole;
+use App\Enum\UserClass;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
 
         //superadmin
         User::create([
-            'username' => 'spadmin',
+            'email' => 'spadmin@test.com',
             'full_name' => "super admin",
             'role' => UserRole::SuperAdmin->value,
             'password' => 'testlmao'
@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
 
         //admin
         User::create([
-            'username' => 'testadmin',
+            'email' => 'testadmin@test.com',
             'full_name' => "admin test",
             'role' => UserRole::Admin->value,
             'password' => "testlmao"
@@ -36,10 +36,10 @@ class DatabaseSeeder extends Seeder
 
         //student
         User::create([
-            'username' => 'teststudent',
+            'email' => 'teststudent@test.com',
             'full_name' => 'student test',
             'role' => UserRole::Student->value,
-            'class' => "XII - RPL 1",
+            'class' => UserClass::XII_RPL_1->value,
             'password' => 'testlmao'
         ]);
 

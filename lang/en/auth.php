@@ -22,7 +22,7 @@ return [
 
     // Send Email
     'email_verification_title' => 'Your Email needed Verification.',
-    'email_verification_greeting' => 'Hello,',
+    'email_verification_greeting' => 'Hello',
     'email_verification_content' => 'Use this OTP code to verify your Email:',
     'email_verification_minute' => 'This code only valid for',
     'email_verification_footer' => 'Thank You',

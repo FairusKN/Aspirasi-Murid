@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Enum\UserClass;
 
 use App\Enum\UserRole;
 
@@ -16,22 +17,22 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            //$table->timestamp('email_verified_at')->nullable();
             $table->string("full_name");
             $table->enum("role", array_column(UserRole::cases(), 'value'))->value(UserRole::Student->value);
-            $table->string("nis")->nullable(true)->unique();
-            $table->string("class")->nullable();
+            $table->string("nis")->nullable()->unique();
+            $table->enum('class', array_column(UserClass::cases(), 'value'))->nullable();
             $table->string('password');
             $table->boolean('is_active')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });
 
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
-        });
+        //Schema::create('password_reset_tokens', function (Blueprint $table) {
+        //    $table->string('email')->primary();
+        //    $table->string('token');
+        //    $table->timestamp('created_at')->nullable();
+        //});
 
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
@@ -42,13 +43,13 @@ return new class extends Migration
             $table->integer('last_activity')->index();
         });
 
-        Schema::create('email_verification_codes', function (Blueprint $table) {
-            $table->id();
-            $table->foreignUuid('user_id')->unique()->constrained('users')->cascadeOnDelete();
-            $table->string('code');
-            $table->timestamp('expires_at');
-            $table->timestamps();
-        });
+        //Schema::create('email_verification_codes', function (Blueprint $table) {
+        //    $table->id();
+        //    $table->foreignUuid('user_id')->unique()->constrained('users')->cascadeOnDelete();
+        //    $table->string('code');
+        //    $table->timestamp('expires_at');
+        //    $table->timestamps();
+        //});
     }
 
     /**

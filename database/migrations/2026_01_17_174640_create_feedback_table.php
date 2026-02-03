@@ -3,8 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
 use App\Enum\FeedbackStatus;
+use App\Enum\Category;
 
 return new class extends Migration
 {
@@ -16,12 +16,11 @@ return new class extends Migration
         Schema::create('feedback', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->foreignUuid('user_id')->constrained('users');
-            $table->foreignId('category_id')->constrained('categories');
+            $table->enum('category', array_column(Category::cases(), 'value'));
             $table->string('feedback_title');
             $table->text('details');
             $table->string('location');
             $table->enum('status', array_column(FeedbackStatus::cases(), 'value'))->default(FeedbackStatus::Waiting->value);
-            $table->boolean('anonymous')->default(false);
             $table->string('image')->nullable();
             $table->text('admin_response')->nullable();
             $table->timestamps();

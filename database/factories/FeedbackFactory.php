@@ -5,8 +5,8 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 use App\Models\User;
-use App\Models\Category;
 use App\Enum\FeedbackStatus;
+use App\Enum\Category;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Feedback>
@@ -22,12 +22,11 @@ class FeedbackFactory extends Factory
     {
         return [
             'user_id' => User::factory()->create()->id,
-            'category_id' => Category::factory()->create()->id,
+            'category' => fake()->randomElement(Category::class),
             'feedback_title' => fake()->unique()->words(2, true),
             'details' => fake()->text(200),
             'location' => fake()->locale(),
             'status' => fake()->randomElement(FeedbackStatus::class),
-            'anonymous' => fake()->boolean(),
             'image' => fake()->filePath(),
             'admin_response' => fake()->boolean() ? fake()->text(200) : ""
         ];

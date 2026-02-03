@@ -10,7 +10,7 @@ return [
 
     // Send Email
     'email_verification_title' => 'Verifikasi Email anda.',
-    'email_verification_greeting' => 'Halo,',
+    'email_verification_greeting' => 'Halo',
     'email_verification_content' => 'Silahkan gunakan kode OTP berikut untuk verifikasi email Anda:',
     'email_verification_minute' => 'Kode ini hanya berlaku selama',
     'email_verification_footer' => 'Terima Kasih',

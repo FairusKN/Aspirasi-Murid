@@ -63,7 +63,7 @@
                         <tr class="group hover:bg-blue-50 transition">
                             <td class="px-6 py-4 flex items-center gap-3">
                                 <div>
-                                    <p class="font-medium text-gray-800">{{$feedback->anonymous ? __('feedback.anonymous') : $feedback->student->full_name }}</p>
+                                    <p class="font-medium text-gray-800">{{$feedback->student->full_name }}</p>
                                 </div>
                             </td>
 

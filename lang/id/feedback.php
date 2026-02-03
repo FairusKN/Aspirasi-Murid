@@ -9,7 +9,7 @@ return [
     'student_name' => 'Nama Murid',
     'title' => "Judul",
     'location' => 'Lokasi',
-    'date' => 'Tanggqal',
+    'date' => 'Tanggal',
     'category' => 'Kategori',
     'status' => 'Status',
 

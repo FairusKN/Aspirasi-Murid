@@ -86,7 +86,7 @@ class AuthService
         $user = User::where('email', $fields['email'])->first();
 
         // Check Another stuff
-        $this->isEmailVerified($user);
+        //$this->isEmailVerified($user);
         $this->isUserActive($user);
     }
 

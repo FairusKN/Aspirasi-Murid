@@ -23,21 +23,21 @@
 
                     <!-- Username Field -->
                     <div class="form-group">
-                        <label for="username" class="block text-sm font-medium text-gray-700 mb-2">Username</label>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <i class="fas fa-user text-gray-400"></i>
                             </div>
                             <input
                                 type="text"
-                                id="username"
-                                name="username"
+                                id="email"
+                                name="email"
                                 class="form-control w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white"
-                                placeholder="username123"
+                                placeholder="johndoe@mail.com"
                                 required
                             >
                         </div>
-                        <x-input-error field="username" class="mt-1 text-sm text-red-600" />
+                        <x-input-error field="email" class="mt-1 text-sm text-red-600" />
                     </div>
 
                     <!-- Password Field -->

@@ -27,7 +27,7 @@ class UserFactory extends Factory
     {
         $role =  fake()->randomElement(array_column(UserRole::cases(), 'value'));
         return [
-            'username' => fake()->userName(),
+            'email' => fake()->unique()->email(),
             'full_name' => fake()->name(),
             'role' => $role,
             'nis' => $role == UserRole::Student->value ? fake()->creditCardNumber(separator: "") : null,
