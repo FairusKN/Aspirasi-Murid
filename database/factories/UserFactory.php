@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 use App\Enum\UserRole;
+use App\Enum\UserClass;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -32,7 +33,7 @@ class UserFactory extends Factory
             'role' => $role,
             'nis' => $role == UserRole::Student->value ? fake()->creditCardNumber(separator: "") : null,
             //'is_active' => fake()->boolean(),
-            'class' => $role == UserRole::Student->value ? fake()->randomElement(["XII - RPL 1", "XI - RPL 1", "X - RPL 1"]) : null,
+            'class' => $role == UserRole::Student->value ? fake()->randomElement(UserClass::class) : null,
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];

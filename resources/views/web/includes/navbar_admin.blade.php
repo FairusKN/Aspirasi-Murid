@@ -75,7 +75,8 @@
         >
             <div class="px-4 py-3 text-sm border-b">
                 <span class="block font-semibold text-gray-900">{{$authUser->full_name}}</span>
-                <span class="block truncate text-gray-500">{{$authUser->username}}</span>
+                <span class="block truncate text-gray-500">{{$authUser->email}}</span>
+                <span class="block truncate text-gray-500">{{$authUser->nis}}</span>
             </div>
             <ul class="py-2 text-sm">
                 <li>

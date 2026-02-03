@@ -59,7 +59,7 @@
                     <div class="flex items-center justify-between mb-4">
                         <div class="flex items-center">
                             <div class="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
-                            <span class="text-sm text-gray-600">{{$feedback->category->name}}</span>
+                            <span class="text-sm text-gray-600">{{$feedback->category}}</span>
                         </div>
                         <div class="flex items-center">
                             <div class="w-3 h-3 bg-{{$feedback->status}} rounded-full mr-2"></div>

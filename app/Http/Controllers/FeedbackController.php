@@ -29,7 +29,7 @@ class FeedbackController extends Controller
     {
         dd($feedback);
         return view('web.shared.detailed_feedback')
-            ->with('data', $feedback->load('comments'));
+            ->with('data');
     }
 
     public function show(AdminFilterFeedbackRequest $request): View
