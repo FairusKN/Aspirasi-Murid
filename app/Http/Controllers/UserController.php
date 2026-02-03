@@ -20,7 +20,7 @@ class UserController extends Controller
 
     public function show(FilterUserRequest $request): View
     {
-        return view('pages.student')
+        return view('web.admin.students')
             ->with('data', $this->userService->userPaginationQuery($request->validated()));
     }
 

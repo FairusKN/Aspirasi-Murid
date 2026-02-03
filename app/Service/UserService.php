@@ -90,6 +90,8 @@ class UserService
             fn($q) => $q->where('role', $filter['role'])
         );
 
+        $query->orderBy('full_name', 'asc');
+
         $data = $query->paginate(10);
 
         return $data;

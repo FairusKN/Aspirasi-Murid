@@ -47,4 +47,4 @@ Route::middleware(['auth', 'is_active'])->group(function () {
     });
 });
 
-Route::get('/chat/{prompt}', [ChatBotController::class, 'chatBot'])->name('ai');
+//Route::get('/chat/{prompt}', [ChatBotController::class, 'chatBot'])->name('ai');

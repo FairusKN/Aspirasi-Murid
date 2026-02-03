@@ -29,7 +29,7 @@
           </a>
 
           <a
-            href="#"
+            href="{{route('pages.users')}}"
             class="group relative inline-block hover:text-[#1B98E0] transition-colors duration-200"
           >
             Student

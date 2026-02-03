@@ -1,0 +1,98 @@
+@extends('web.layouts.admin')
+
+@section('header')
+    <title>Student</title>
+    <script>
+      tailwind.config = {
+        theme: {
+            extend: {
+              colors: {
+                'is_active-text': '#2E7D32',
+                'is_active-bg': 'rgba(46, 125, 50, 0.15)',
+
+                'not_active-text': '#C62828',
+                'not_active-bg': 'rgba(198, 40, 40, 0.15)',
+              }
+            }
+        },
+      };
+    </script>
+@endsection
+
+@php
+   $statusClasses = [
+       'is_active' => 'bg-is_active-bg text-is_active-text hover:bg-is_active-bg/30 transition',
+       'not_active' => 'bg-not_active-bg text-not_active-text hover:bg-not_active-bg/30 transition',
+   ];
+@endphp
+
+@section('content')
+    <div class="p-8 mt-10">
+
+        <!-- Card -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200">
+
+            <!-- Header -->
+            <div class="flex items-center justify-between px-6 py-4 border-b">
+                <div>
+                    <h2 class="text-lg font-semibold text-gray-800">{{__('feedback.heading')}}</h2>
+                    <p class="text-sm text-gray-500">{{__('feedback.sub_title')}}</p>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="overflow-x-auto">
+                <table class="min-w-full text-sm">
+
+                    <!-- Head -->
+                    <thead class="sticky top-0 bg-[#006494] z-10">
+                        <tr class="text-[#E8F1F2] uppercase text-xs tracking-wider">
+                            <th class="px-6 py-3 text-left">{{__('feedback.student_name')}}</th>
+                            <th class="px-6 py-3 text-left">Email</th>
+                            <th class="px-6 py-3 text-center">NIS</th>
+                            <th class="px-6 py-3 text-center">Status</th>
+                        </tr>
+                    </thead>
+
+                    <!-- Body -->
+                    <tbody class="divide-y">
+
+                        <!-- Row -->
+                        @foreach ($data as $student)
+                            <tr class="group hover:bg-blue-50 transition">
+                                <td class="px-6 py-4 flex items-center gap-3">
+                                    <div>
+                                        <p class="font-medium text-gray-800">{{$student->full_name }}</p>
+                                    </div>
+                                </td>
+
+                                <td class="px-6 py-4 text-gray-700">
+                                   {{$student->email}}
+                                </td>
+
+                                <td class="px-6 py-4 text-center">
+                                    {{$student->nis}}
+                                </td>
+
+                                <td class="px-6 py-4 text-center text-gray-500">
+                                    <form method="POST" action="{{ route('users.toggle_activate', $student)}}">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                                        <button type="submit" class="inline-flex px-3 py-1 rounded-full text-xs font-medium {{$statusClasses[$student->is_active ? 'is_active' : 'not_active']}}">
+                                            {{$student->is_active ? "Aktif" : "Tidak AKtif"}}
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <div class="px-6 py-4 ">
+                    <div >
+                        {{ $data->links('pagination::tailwind') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
