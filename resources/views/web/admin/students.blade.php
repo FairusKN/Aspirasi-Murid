@@ -35,8 +35,23 @@
             <!-- Header -->
             <div class="flex items-center justify-between px-6 py-4 border-b">
                 <div>
-                    <h2 class="text-lg font-semibold text-gray-800">{{__('feedback.heading')}}</h2>
-                    <p class="text-sm text-gray-500">{{__('feedback.sub_title')}}</p>
+                    <h2 class="text-lg font-semibold text-gray-800">{{__('student.title')}}</h2>
+                    <p class="text-sm text-gray-500">{{__('student.sub_title')}}</p>
+                </div>
+                <div class="align-right pt-5">
+                   <button
+                       type="button"
+                       class="text-white bg-[#247BA0] hover:bg-[#247BA0]/90 transition focus:ring-4 focus:ring-blue-300 shadow-sm font-medium rounded-md text-sm px-4 py-2.5 focus:outline-none"
+                   >
+                    {{__('student.create_student')}}
+                   </button>
+
+                   <button
+                       type="button"
+                       class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 shadow-sm font-medium rounded-md text-sm px-4 py-2.5 focus:outline-none"
+                   >
+                    Export
+                   </button>
                 </div>
             </div>
 

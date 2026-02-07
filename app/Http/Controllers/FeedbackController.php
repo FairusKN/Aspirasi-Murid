@@ -27,9 +27,8 @@ class FeedbackController extends Controller
 
     public function index(Feedback $feedback): View
     {
-        dd($feedback);
         return view('web.shared.detailed_feedback')
-            ->with('data');
+            ->with('data', $feedback);
     }
 
     public function show(AdminFilterFeedbackRequest $request): View

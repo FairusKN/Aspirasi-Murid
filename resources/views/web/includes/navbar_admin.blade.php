@@ -1,8 +1,8 @@
 <nav class="bg-[#1a2b45] text-white px-6 py-3 flex items-center justify-between border-b border-blue-300">
     <!-- Logo Section -->
     <div class="flex items-center ml-3 p-2">
-        <img src="https://placehold.co/40x40/FFD700/000000?text=Logo" alt="Logo" class="h-10 w-10 rounded-full">
-        <span class="font-semibold text-lg ml-3">school name</span>
+        <img src="{{ asset('assets/smkmerdekabandunglogo.webp') }}" alt="Logo" class="h-13 w-10 rounded-full">
+        <span class="font-semibold text-lg ml-5">SMK Merdeka Bandung</span>
     </div>
 
     <!-- Navigation Links - Centered -->
