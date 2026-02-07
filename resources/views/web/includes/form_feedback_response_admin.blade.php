@@ -73,13 +73,7 @@
 
 
             <!-- ACTIONS -->
-            <div class="flex gap-3 pt-2">
-
-                <a href="{{ route('pages.feedback') }}"
-                   class="w-1/2 text-center border rounded-md py-2 text-gray-700 hover:bg-gray-50">
-                    Cancel
-                </a>
-
+            <div class= pt-2">
                 <button type="submit"
                         class="w-1/2 bg-blue-600 text-white rounded-md py-2 hover:bg-blue-700">
                     Save Changes

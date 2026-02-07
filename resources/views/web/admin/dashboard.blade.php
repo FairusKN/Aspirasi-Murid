@@ -21,29 +21,39 @@
 @section('content')
   <main class="container mx-auto px-6 py-8">
         <!-- Stats Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20 mt-10">
-            <!-- Total Feedback Card -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 mb-5 mt-10">
             <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
                 <h3 class="text-sm font-medium text-gray-500 mb-2">{{ __('dashboard.total_feedback') }}</h3>
-                <p class="text-3xl font-bold text-gray-800">{{$data['total_feedback']}}</p>
+                <p class="text-3xl font-bold text-gray-800">{{$data['analytics']['total_feedback']}}</p>
             </div>
-
+            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+                <h3 class="text-sm font-medium text-gray-500 mb-2">{{ __('dashboard.total_feedback_today') }}</h3>
+                <p class="text-3xl font-bold text-gray-800">{{$data['analytics']['total_feedback_today']}}</p>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20 mt-5">
             <!-- Total Feedback Completed Card -->
             <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
                 <h3 class="text-sm font-medium text-gray-500 mb-2">{{ __('dashboard.total_feedback_completed') }}</h3>
-                <p class="text-3xl font-bold text-green-600">{{$data['total_feedback_completed']}}</p>
+                <p class="text-3xl font-bold text-completed">{{$data['analytics']['total_feedback_status']['completed']}}</p>
             </div>
 
             <!-- Total Feedback In Progress Card -->
             <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
                 <h3 class="text-sm font-medium text-gray-500 mb-2">{{ __('dashboard.total_feedback_in_progress') }}</h3>
-                <p class="text-3xl font-bold text-yellow-600">{{$data['total_feedback_in_progress']}}</p>
+                <p class="text-3xl font-bold text-in_progress">{{$data['analytics']['total_feedback_status']['in_progress']}}</p>
             </div>
 
             <!-- Total Feedback Waiting Card -->
             <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
                 <h3 class="text-sm font-medium text-gray-500 mb-2">{{ __('dashboard.total_feedback_waiting') }}</h3>
-                <p class="text-3xl font-bold text-red-600">{{$data['total_feedback_waiting']}}</p>
+                <p class="text-3xl font-bold text-waiting">{{$data['analytics']['total_feedback_status']['waiting']}}</p>
+            </div>
+
+            <!-- Total Feedback Waiting Card -->
+            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+                <h3 class="text-sm font-medium text-gray-500 mb-2">{{ __('dashboard.total_feedback_rejected') }}</h3>
+                <p class="text-3xl font-bold text-rejected">{{$data['analytics']['total_feedback_status']['rejected']}}</p>
             </div>
         </div>
 

@@ -1,7 +1,7 @@
 <nav class="bg-[#1a2b45] text-white px-6 py-3 flex items-center justify-between border-b border-blue-300">
     <!-- Logo Section -->
     <div class="flex items-center ml-3 p-2">
-        <img src="{{ asset('assets/smkmerdekabandunglogo.webp') }}" alt="Logo" class="h-13 w-10 rounded-full">
+        <img src="{{ asset('assets/smkmerdekabandunglogo.webp') }}" alt="Logo" class="h-10 w-8 rounded-full">
         <span class="font-semibold text-lg ml-5">SMK Merdeka Bandung</span>
     </div>
 
@@ -38,15 +38,6 @@
             ></span>
           </a>
 
-          <a
-            href="#"
-            class="group relative inline-block hover:text-[#1B98E0] transition-colors duration-200"
-          >
-            Log
-            <span
-              class="absolute left-0 -bottom-1 h-0.5 w-0 bg-[#1B98E0] transition-all duration-300 group-hover:w-full"
-            ></span>
-          </a>
         </div>
     </div>
 
