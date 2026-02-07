@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FeedbackController;
-use App\Http\Controllers\ChatBotController;
 
 // Page COntroller
 use App\Http\Controllers\PageController\AuthPageController;
@@ -43,8 +42,8 @@ Route::middleware(['auth', 'is_active'])->group(function () {
         Route::get('/', [FeedbackController::class, 'show'])->name('pages.feedback');
         Route::get('/{feedback}', [FeedbackController::class, 'index'])->name('pages.detailed_feedback')
             ->whereUuid('feedback');
-        Route::post('/', [FeedbackController::class, 'create'])->name('feedbacks.create');
+        Route::put('/{feedback}/response', [FeedbackController::class, 'adminResponse'])->name('feedbacks.admin_response')
+            ->whereUuid("feedback");
+        Route::post('/', [FeedbackController::class, 'create'])->name('feedbacks.create')->name('feedback.create');
     });
 });
-
-//Route::get('/chat/{prompt}', [ChatBotController::class, 'chatBot'])->name('ai');

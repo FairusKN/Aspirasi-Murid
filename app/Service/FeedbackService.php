@@ -8,6 +8,8 @@ use App\Service\ImageService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AdminResponseMail;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -154,5 +156,23 @@ class FeedbackService
         $path = "/" . $this->folder_name;
 
         if (!$this->publicStorage->exists($path)) $this->publicStorage->makeDirectory($path);
+    }
+
+    /**
+     *
+     * Update / Insert a feedback field, then Send an email using student relation to get student email.
+     * This function is update the feedback model, if field has another field it will got updated too.
+     *
+     * @param array $field
+     * @param Feedback $feedback
+     *
+     * return void
+     */
+    public function upsertAdminResponse(array $field, Feedback $feedback): void
+    {
+        $feedback->update($field);
+        //Mail::to($feedback->student?->email)->send(
+        //    new AdminResponseMail($feedback->fresh())
+        //);
     }
 }

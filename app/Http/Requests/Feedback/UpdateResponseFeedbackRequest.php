@@ -7,6 +7,7 @@ use Illuminate\Validation\Rules\Enum;
 
 use App\Enum\FeedbackStatus;
 use App\Enum\UserRole;
+use App\Enum\Category;
 
 class UpdateResponseFeedbackRequest extends FormRequest
 {
@@ -26,6 +27,7 @@ class UpdateResponseFeedbackRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'category' => ['nullable', new Enum(Category::class)],
             'status' => ['nullable', new Enum(FeedbackStatus::class)],
             'admin_response' => 'nullable|string'
         ];

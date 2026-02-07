@@ -86,7 +86,7 @@ class FeedbackController extends Controller
 
     public function adminResponse(UpdateResponseFeedbackRequest $request, Feedback $feedback): RedirectResponse
     {
-        $feedback->update($request->validated());
+        $this->feedbackService->upsertAdminResponse($request->validated(), $feedback);
         return back()->with(
             "success",
             __(
