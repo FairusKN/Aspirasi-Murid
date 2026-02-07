@@ -26,7 +26,7 @@ class AutditLog extends Model
      * @param LogAction $action
      * @return void
      **/
-    public function createLogging(LogAction $action, string $details): void
+    static function createLogging(LogAction $action, string $details): void
     {
         $user = Auth::user();
 

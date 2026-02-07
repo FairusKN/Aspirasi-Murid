@@ -30,7 +30,7 @@ class AdminResponseMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Admin Response Mail',
+            subject: 'Admin Response Feedback',
         );
     }
 
@@ -40,7 +40,7 @@ class AdminResponseMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'email.feedback_response',
             with: [
                 'feedback' => $this->feedback
             ]

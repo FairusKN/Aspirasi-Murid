@@ -3,7 +3,9 @@
 namespace App\Service;
 
 use App\Models\Feedback;
+use App\Models\AutditLog;
 use App\Service\ImageService;
+use App\Enum\LogAction;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -171,8 +173,9 @@ class FeedbackService
     public function upsertAdminResponse(array $field, Feedback $feedback): void
     {
         $feedback->update($field);
-        //Mail::to($feedback->student?->email)->send(
-        //    new AdminResponseMail($feedback->fresh())
-        //);
+        AutditLog::createLogging(LogAction::ResponseFeedback, "Response feedback: " . $feedback->title);
+        Mail::to($feedback->student?->email)->send(
+            new AdminResponseMail($feedback->fresh())
+        );
     }
 }
