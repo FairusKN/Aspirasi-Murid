@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Models\User;
 use App\Enum\UserRole;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -48,7 +49,7 @@ class UserService
      *
      * If user is an admin, Query default to student-only
      *
-     * Filter has 'username', 'full_name' , 'nis', 'class', 'is_active', and 'role' if user is a SuperAdmin
+     * Filter has , 'full_name' , 'nis', 'class', 'is_active', and 'role' if user is a SuperAdmin
      */
     public function userPaginationQuery(array $filter): LengthAwarePaginator
     {
@@ -61,7 +62,7 @@ class UserService
         );
 
         $query->when(
-            isset($filter['username']),
+            isset($filter['email']),
             fn($q) => $q->where('username', 'ILIKE', '%' . $filter['username'] . "%")
         );
 
@@ -95,5 +96,23 @@ class UserService
         $data = $query->paginate(10);
 
         return $data;
+    }
+
+    public function makeUserModel(array $fields): User
+    {
+        $fields['role'] = $fields['role'] ?? UserRole::Student->value;
+        return User::make($fields);
+    }
+
+    public function createUser(array $fields): User
+    {
+        //if role is null, then it is admin craete student. Otherwise it is superadmin create a user
+        $fields['role'] = $fields['role'] ?? UserRole::Student->value;
+
+        // If password is null, then it will use nis. If nis is null, it will use default
+        $fields['password'] = $fields['password'] ?: $fields['nis'] ?: "default123";
+
+
+        return User::create($fields);
     }
 }

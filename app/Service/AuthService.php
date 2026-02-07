@@ -26,8 +26,8 @@ class AuthService
         // Check if role is empty mean its a user
         if (!isset($fields['role'])) $fields['role'] = UserRole::Student->value;
 
-        $user = User::create($fields);
-        $this->generateEmailVerificationToken($user);
+        User::create($fields);
+        //$this->generateEmailVerificationToken($user);
     }
 
     public function resendEmailVerification(array $fields): void

@@ -4,6 +4,7 @@ namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Enum\UserRole;
+use App\Enum\UserClass;
 use Illuminate\Validation\Rules\Enum;
 
 class CreateUserRequest extends FormRequest
@@ -13,7 +14,7 @@ class CreateUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return in_array($this->user?->role, [
+        return in_array($this->user()->role, [
             UserRole::SuperAdmin->value,
             UserRole::Admin->value
         ]);
@@ -27,19 +28,19 @@ class CreateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => "required|string|unique:users,username",
+            'email' => "required|email|unique:users,email",
             'full_name' => 'required|string',
-            'password' => 'required|string|min:8',
-            'role' => ['required', new Enum(UserRole::class)],
+            'password' => 'nullable|string|min:8',
+            'role' => ['nullable', new Enum(UserRole::class)],
             'nis' => 'nullable|string|unique:users,nis',
-            'class' => 'nullable|string',
+            'class' => ['nullable', new Enum(UserClass::class)],
         ];
     }
 
     public function withValidator($validator): void
     {
         $validator->after(function ($validator) {
-            if ($this->input('role') === UserRole::Student->value) {
+            if ($this->input('role') === UserRole::Student->value || !$this->filled('role')) {
                 if (!$this->filled('nis') || !$this->filled('class')) {
                     $validator->errors()->add([
                         'field',

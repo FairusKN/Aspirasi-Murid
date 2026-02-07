@@ -26,7 +26,10 @@ class UserController extends Controller
 
     public function create(CreateUserRequest $request): RedirectResponse
     {
-        $user = User::create($request->validated());
+        $fields = $request->validated();
+        $this->authorize('create', $this->userService->makeUserModel($fields));
+
+        $user = $this->userService->createUser($fields);
         return back()->with(
             "success",
             __(
