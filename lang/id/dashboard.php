@@ -8,6 +8,8 @@ return [
     'total_feedback_in_progress' => "Total Aspirasi Dalam Progress",
     'total_feedback_waiting' => "Total Aspirasi Menunggu",
     'total_feedback_rejected' => "Total Aspirasi Ditolak",
+    'total_admin_response' => 'Total Respon Admin',
+    'total_admin_response_today' => 'Total Respon Admin Hari Ini',
 
     'recent_feedbacks' => 'Aspirasi Terkini',
     'created_at' => 'Waktu Dibuat'
