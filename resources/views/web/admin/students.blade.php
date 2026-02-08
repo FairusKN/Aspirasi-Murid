@@ -263,7 +263,7 @@
             <!-- Upload Form -->
             <div id="uploadForm" class="hidden">
 
-                <form method="POST" action="#" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('users.create_file') }}" enctype="multipart/form-data">
                     @csrf
 
                     <input type="file" name="file"

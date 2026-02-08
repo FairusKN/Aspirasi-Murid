@@ -35,6 +35,7 @@ Route::middleware(['auth', 'is_active'])->group(function () {
     Route::prefix('/users')->group(function () {
         Route::get("/", [UserController::class, "show"])->name('pages.users');
         Route::post("/create", [UserController::class, "create"])->name('users.create');
+        Route::post("/create-file", [UserController::class, "createFromFile"])->name('users.create_file');
         Route::post("/{user}/toggle-activate", [UserController::class, 'activateToggle'])->name('users.toggle_activate');
     });
 

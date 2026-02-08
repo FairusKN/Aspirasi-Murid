@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Enum\UserRole;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -112,7 +114,33 @@ class UserService
         // If password is null, then it will use nis. If nis is null, it will use default
         $fields['password'] = $fields['password'] ?: $fields['nis'] ?: "default123";
 
-
         return User::create($fields);
+    }
+
+    public function createUsersFromExcel(UploadedFile $file)
+    {
+        $rows = Excel::toArray([], $file)[0];
+        $header = array_shift($rows);
+
+        $data = collect($rows)
+            ->map(function ($row) use ($header) {
+
+                $item = collect(array_combine($header, $row))
+                    ->except('role');
+
+                if (!filled($item->get('password')) && $item->has('nis')) {
+                    $item['password'] = $item['nis'];
+                }
+
+                return $item->toArray();
+            })
+            ->toArray();
+
+        $data = collect($data)->map(function ($item) {
+            $item['id'] = (string) Str::uuid();
+            return $item;
+        })->toArray();
+
+        User::insert($data);
     }
 }

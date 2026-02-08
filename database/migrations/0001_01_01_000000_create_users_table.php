@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email')->unique();
             //$table->timestamp('email_verified_at')->nullable();
             $table->string("full_name");
-            $table->enum("role", array_column(UserRole::cases(), 'value'))->value(UserRole::Student->value);
+            $table->enum("role", array_column(UserRole::cases(), 'value'))->default(UserRole::Student->value);
             $table->string("nis")->nullable()->unique();
             $table->enum('class', array_column(UserClass::cases(), 'value'))->nullable();
             $table->string('password');

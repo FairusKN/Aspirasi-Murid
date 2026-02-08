@@ -7,6 +7,7 @@ use App\Service\UserService;
 
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\FilterUserRequest;
+use App\Http\Requests\User\CreateUserFromFileRequest;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
@@ -36,6 +37,22 @@ class UserController extends Controller
                 'messages.created',
                 [
                     'attribute' => __('models.' . $user->role)
+                ]
+            )
+        );
+    }
+
+    public function createFromFile(CreateUserFromFileRequest $request): RedirectResponse
+    {
+        $fields = $request->validated();
+        $this->userService->createUsersFromExcel($fields['file']);
+
+        return back()->with(
+            "success",
+            __(
+                'messages.created',
+                [
+                    'attribute' => __('models.student')
                 ]
             )
         );
