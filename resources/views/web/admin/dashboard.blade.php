@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const hue = (i * 45) % 360;
 
             // lower saturation + higher lightness
-            const saturation = 65; // softer
+            const saturation = 75; // softer
             const lightness = 60;  // brighter / pastel
 
             colors.push(`hsl(${hue}, ${saturation}%, ${lightness}%)`);

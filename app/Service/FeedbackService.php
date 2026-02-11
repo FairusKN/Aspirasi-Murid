@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Models\Feedback;
 use App\Models\AutditLog;
+use App\Models\CategoryRecipient;
 use App\Service\ImageService;
 use App\Enum\LogAction;
 
@@ -162,7 +163,7 @@ class FeedbackService
 
     /**
      *
-     * Update / Insert a feedback field, then Send an email using student relation to get student email.
+     * Update a feedback field, then Send an email using student relation to get student email.
      * This function is update the feedback model, if field has another field it will got updated too.
      *
      * @param array $field
@@ -170,10 +171,23 @@ class FeedbackService
      *
      * return void
      */
-    public function upsertAdminResponse(array $field, Feedback $feedback): void
+    public function updateAdminResponse(array $field, Feedback $feedback): void
     {
         $feedback->update($field);
         AutditLog::createLogging(LogAction::ResponseFeedback, "Response feedback: " . $feedback->title);
+        $this->emailAfterResponsRelated($feedback);
+    }
+
+    protected function emailAfterResponsRelated(Feedback $feedback): void
+    {
+        // Mail to Category Recipient
+        $recipients = CategoryRecipient::where(['category', $feedback->category, 'is_active', true])
+            ->pluck('email');
+        Mail::to($recipients)->send(
+            new AdminResponseMail($feedback->fresh())
+        );
+
+        // Mail to Student
         Mail::to($feedback->student?->email)->send(
             new AdminResponseMail($feedback->fresh())
         );
