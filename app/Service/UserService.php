@@ -64,23 +64,14 @@ class UserService
         );
 
         $query->when(
-            isset($filter['email']),
-            fn($q) => $q->where('username', 'ILIKE', '%' . $filter['username'] . "%")
-        );
-
-        $query->when(
-            isset($filter['full_name']),
-            fn($q) => $q->where('full_name', 'ILIKE', '%' . $filter['full_name'] . "%")
-        );
-
-        $query->when(
-            isset($filter['nis']),
-            fn($q) => $q->where('nis', 'ILIKE', '%' . $filter['nis'] . "%")
-        );
-
-        $query->when(
-            isset($filter['class']),
-            fn($q) => $q->where('class', 'ILIKE', '%' . $filter['class'] . "%")
+            isset($filter['search']) && $filter['search'] !== '',
+            function ($q) use ($filter) {
+                $q->where(function ($sub) use ($filter) {
+                    $sub->where('full_name', 'ILIKE', '%' . $filter['search'] . '%')
+                        ->orWhere('nis', 'ILIKE', '%' . $filter['search'] . '%')
+                        ->orWhere('class', 'ILIKE', '%' . $filter['search'] . '%');
+                });
+            }
         );
 
         $query->when(
@@ -93,7 +84,7 @@ class UserService
             fn($q) => $q->where('role', $filter['role'])
         );
 
-        $query->orderBy('full_name', 'asc');
+        $query->orderBy('created_at', 'asc');
 
         $data = $query->paginate(10);
 

@@ -26,10 +26,7 @@ class FilterUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => 'nullable|string|max:30',
-            'full_name' => 'nullable|string|max:30',
-            'nis' => 'nullable|string|max:30',
-            'class' => 'nullable|string|max:30',
+            'search' => 'nullable|string|max:50',
             'is_active' => 'nullable|boolean',
             'role' => 'nullable|string'
         ];

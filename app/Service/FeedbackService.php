@@ -112,16 +112,15 @@ class FeedbackService
         $query = Feedback::query()
 
             // If User is a superAdmin, User can see the anonym student
-            //->when(
-            //    Auth::user()->role === UserRole::SuperAdmin->value,
-            //    fn($q) => $q->with('student')->when(
-            //        isset($filter['student_name']),
-            //        fn($q) => $q->whereRelation('student', 'full_name', 'ILIKE', "%" . $filter['student_name'] . '%')
-            //    )
-            //)
+            ->when(
+                fn($q) => $q->with('student')->when(
+                    isset($filter['student_name']),
+                    fn($q) => $q->whereRelation('student', 'full_name', 'ILIKE', "%" . $filter['student_name'] . '%')
+                )
+            )
             ->when(
                 isset($filter['category']),
-                fn($q) => $q->whereRelation('category', 'name', 'ILIKE', '%' . $filter['category'] . '%')
+                fn($q) => $q->where('category', 'ILIKE', '%' . $filter['category'] . '%')
             )
             ->when(
                 isset($filter['feedback_title']),
