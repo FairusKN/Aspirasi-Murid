@@ -1,200 +1,257 @@
 @extends('web.layouts.admin')
 
 @section('header')
-    <title> Admin Dashboard </title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-            extend: {
-              colors: {
-                completed   : '#2E7D32',
-                in_progress : '#1B98E0',
-                waiting     : '#F9A825',
-                rejected    : '#C62828'
-              }
+<title>Admin Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                completed:'#22c55e',
+                in_progress:'#3b82f6',
+                waiting:'#f59e0b',
+                rejected:'#ef4444'
             }
-        },
-      };
-    </script>
+        }
+    }
+}
+</script>
 @endsection
 
 @section('content')
-  <main class="container mx-auto px-6 py-8">
-        <!-- Stats Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-10 mt-10">
-            <!-- Total Feedback -->
-            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
-                <h3 class="text-sm font-medium text-gray-500 mb-2">{{ __('dashboard.total_feedback') }}</h3>
-                <p class="text-3xl font-bold text-gray-800">{{$data['analytics']['total_feedback'] ?? 0}}</p>
-            </div>
 
-            <!-- Total Feedback Today -->
-            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
-                <h3 class="text-sm font-medium text-gray-500 mb-2">{{ __('dashboard.total_feedback_today') }}</h3>
-                <p class="text-3xl font-bold text-gray-800">{{$data['analytics']['total_feedback_today'] ?? 0}}</p>
-            </div>
+<main class="container mx-auto px-6 py-8 space-y-10">
 
-            <!-- Total Admin Response -->
-            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
-                <h3 class="text-sm font-medium text-gray-500 mb-2">{{ __('dashboard.total_admin_response') }}</h3>
-                <p class="text-3xl font-bold text-gray-800">{{$data['analytics']['total_admin_response_today']}}</p>
-            </div>
+<!-- ================= HEADER ================= -->
+<div>
+    <h1 class="text-3xl font-bold text-gray-900">Dashboard Overview</h1>
+    <p class="text-gray-500 mt-1">Quick insight into feedback activity.</p>
+</div>
 
-            <!-- Total Admin Response Today -->
-            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
-                <h3 class="text-sm font-medium text-gray-500 mb-2">{{ __('dashboard.total_admin_response_today') }}</h3>
-                <p class="text-3xl font-bold text-gray-800">{{$data['analytics']['total_admin_response_today']}}</p>
-            </div>
 
-            <!-- Total Feedback Completed Card -->
-            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
-                <h3 class="text-sm font-medium text-gray-500 mb-2">{{ __('dashboard.total_feedback_completed') }}</h3>
-                <p class="text-3xl font-bold text-completed">{{$data['analytics']['total_feedback_status']['completed'] ?? 0}}</p>
-            </div>
+<!-- ================= KPI ROW ================= -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
-            <!-- Total Feedback In Progress Card -->
-            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
-                <h3 class="text-sm font-medium text-gray-500 mb-2">{{ __('dashboard.total_feedback_in_progress') }}</h3>
-                <p class="text-3xl font-bold text-in_progress">{{$data['analytics']['total_feedback_status']['in_progress'] ?? 0}}</p>
-            </div>
+    <!-- TOTAL -->
+    <div class="bg-white rounded-xl shadow-sm border p-6">
+        <p class="text-gray-500 text-sm">Total Feedback</p>
+        <h2 class="text-4xl font-bold mt-2">{{$data['analytics']['total_feedback'] ?? 0}}</h2>
+    </div>
 
-            <!-- Total Feedback Waiting Card -->
-            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
-                <h3 class="text-sm font-medium text-gray-500 mb-2">{{ __('dashboard.total_feedback_waiting') }}</h3>
-                <p class="text-3xl font-bold text-waiting">{{$data['analytics']['total_feedback_status']['waiting'] ?? 0}}</p>
-            </div>
+    <div class="bg-white rounded-xl shadow-sm border p-6">
+        <p class="text-gray-500 text-sm">Today</p>
+        <h2 class="text-4xl font-bold mt-2">{{$data['analytics']['total_feedback_today'] ?? 0}}</h2>
+    </div>
 
-            <!-- Total Feedback Waiting Card -->
-            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
-                <h3 class="text-sm font-medium text-gray-500 mb-2">{{ __('dashboard.total_feedback_rejected') }}</h3>
-                <p class="text-3xl font-bold text-rejected">{{$data['analytics']['total_feedback_status']['rejected'] ?? 0}}</p>
-            </div>
+    <div class="bg-white rounded-xl shadow-sm border p-6">
+        <p class="text-gray-500 text-sm">Admin Responses</p>
+        <h2 class="text-4xl font-bold mt-2">{{$data['analytics']['total_admin_response'] ?? 0}}</h2>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm border p-6">
+        <p class="text-gray-500 text-sm">Responses Today</p>
+        <h2 class="text-4xl font-bold mt-2">{{$data['analytics']['total_admin_response_today'] ?? 0}}</h2>
+    </div>
+
+</div>
+
+
+<!-- ================= STATUS SUMMARY ================= -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+    <div class="bg-completed/10 text-completed rounded-xl p-4">
+        <p class="text-sm">Completed</p>
+        <p class="text-2xl font-bold">{{$data['analytics']['total_feedback_status']['completed'] ?? 0}}</p>
+    </div>
+
+    <div class="bg-in_progress/10 text-in_progress rounded-xl p-4">
+        <p class="text-sm">In Progress</p>
+        <p class="text-2xl font-bold">{{$data['analytics']['total_feedback_status']['in_progress'] ?? 0}}</p>
+    </div>
+
+    <div class="bg-waiting/10 text-waiting rounded-xl p-4">
+        <p class="text-sm">Waiting</p>
+        <p class="text-2xl font-bold">{{$data['analytics']['total_feedback_status']['waiting'] ?? 0}}</p>
+    </div>
+
+    <div class="bg-rejected/10 text-rejected rounded-xl p-4">
+        <p class="text-sm">Rejected</p>
+        <p class="text-2xl font-bold">{{$data['analytics']['total_feedback_status']['rejected'] ?? 0}}</p>
+    </div>
+
+</div>
+
+
+<!-- ================= CHARTS ================= -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+    <!-- CATEGORY PIE -->
+    <div class="bg-white rounded-xl shadow-sm border p-6 h-[320px]">
+
+        <h3 class="font-semibold mb-4">Feedback by Category</h3>
+
+        <div class="h-[240px]">
+            <canvas id="chartCategory"></canvas>
         </div>
 
-        <!-- Chart -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+    </div>
 
-            <div class="bg-white p-4 rounded-lg shadow-sm border">
-                <canvas id="chartCategory"></canvas>
-            </div>
+    <!-- CLASS BAR -->
+    <div class="bg-white rounded-xl shadow-sm border p-6 h-[320px]">
 
-            <div class="bg-white p-4 rounded-lg shadow-sm border">
+        <h3 class="font-semibold mb-4">Feedback by Class</h3>
+
+        <!-- Scroll viewport -->
+        <div class="h-[240px] overflow-y-auto">
+
+            <div id="chartClassWrapper">
                 <canvas id="chartClass"></canvas>
             </div>
 
         </div>
 
-        <!-- Recent Feedbacks Section -->
-        <div class="mb-8">
-            <h2 class="text-xl font-bold text-gray-800 mb-6">{{__('dashboard.recent_feedbacks')}}</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            @foreach ($data['recent_feedback'] as $feedback)
-                <!-- Feedback Card 1 -->
-                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ $feedback->feedback_title}} test</h3>
-                    <p class="text-sl text-gray-900 mb-6">{{Str::words($feedback->details, 20, '...')}}</p>
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center">
-                            <div class="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
-                            <span class="text-sm text-gray-600">{{$feedback->category}}</span>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="w-3 h-3 bg-{{$feedback->status}} rounded-full mr-2"></div>
-                            <span class="text-sm text-gray-600">{{$feedback->status}}</span>
-                        </div>
-                    </div>
-                    <p class="text-xs text-gray-500">{{__('dashboard.created_at')}}: {{$feedback->created_at->format('d F Y')}}</p>
-                </div>
-            @endforeach
+    </div>
 
-            </div>
-        </div>
-    </main>
+</div>
+
+
+<!-- ================= RECENT FEEDBACK ================= -->
+<div>
+
+<h2 class="text-xl font-bold mb-6">Recent Feedback</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+@foreach ($data['recent_feedback'] as $feedback)
+
+<div class="bg-white rounded-xl shadow-sm border p-6 hover:shadow-md transition">
+
+<div class="flex justify-between items-start mb-3">
+
+<h3 class="font-semibold text-gray-800">
+{{$feedback->feedback_title}}
+</h3>
+
+<span class="px-2 py-1 text-xs rounded-full bg-gray-100">
+{{$feedback->category}}
+</span>
+
+</div>
+
+<p class="text-gray-600 text-sm mb-5">
+{{Str::words($feedback->details,20,'...')}}
+</p>
+
+<div class="flex justify-between items-center">
+
+<span class="text-xs text-gray-400">
+{{$feedback->created_at->format('d M Y')}}
+</span>
+
+<span class="text-xs font-medium text-{{$feedback->status}}">
+{{$feedback->status}}
+</span>
+
+</div>
+
+</div>
+
+@endforeach
+
+</div>
+
+</div>
+
+</main>
+
 @endsection
 
+
 @section('scripts')
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
-    const analytics = @json($data['analytics']);
+const analytics = @json($data['analytics']);
 
-    function generateColors(total) {
-        const colors = [];
-
-        for (let i = 0; i < total; i++) {
-
-            // evenly spaced hue
-            const hue = (i * 45) % 360;
-
-            // lower saturation + higher lightness
-            const saturation = 75; // softer
-            const lightness = 60;  // brighter / pastel
-
-            colors.push(`hsl(${hue}, ${saturation}%, ${lightness}%)`);
-        }
-
-        return colors;
+function generateColors(total){
+    const colors=[];
+    for(let i=0;i<total;i++){
+        colors.push(`hsl(${(i*45)%360},70%,60%)`);
     }
+    return colors;
+}
 
-    const categoryLabels = Object.keys(analytics.total_based_on_category);
-    const categoryValues = Object.values(analytics.total_based_on_category);
+/* ================= CATEGORY PIE ================= */
 
-    new Chart(document.getElementById('chartCategory'), {
-        type: 'bar',
-        data: {
-            labels: categoryLabels,
-            datasets: [{
-                label: 'Feedback by Category',
-                data: categoryValues,
-                backgroundColor: generateColors(categoryLabels.length),
-                borderRadius: 6
-            }]
+const categoryLabels = Object.keys(analytics.total_based_on_category ?? {});
+const categoryValues = Object.values(analytics.total_based_on_category ?? {});
+
+new Chart(document.getElementById('chartCategory'),{
+    type:'pie',
+    data:{
+        labels:categoryLabels,
+        datasets:[{
+            data:categoryValues,
+            backgroundColor:generateColors(categoryLabels.length)
+        }]
+    },
+    options:{
+        responsive:true,
+        maintainAspectRatio:false,
+        layout:{
+            padding:10
         },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
+        plugins:{
+            legend:{position:'left'}
         }
-    });
-
-    const classLabels = analytics.total_based_on_class.map(item => item.class);
-    const classValues = analytics.total_based_on_class.map(item => item.total);
-
-    new Chart(document.getElementById('chartClass'), {
-        type: 'bar',
-        data: {
-            labels: classLabels,
-            datasets: [{
-                label: 'Feedback by Class',
-                data: classValues,
-                backgroundColor: generateColors(classLabels.length),
-                borderRadius: 6
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-
+    }
 });
+
+
+/* ================= CLASS BAR ================= */
+
+const classLabels = (analytics.total_based_on_class ?? []).map(i=>i.class);
+const classValues = (analytics.total_based_on_class ?? []).map(i=>i.total);
+
+const canvas = document.getElementById('chartClass');
+const wrapper = document.getElementById('chartClassWrapper');
+
+const BAR_HEIGHT = 32;
+const EXTRA_PADDING = 40;
+
+wrapper.style.height = (classLabels.length * BAR_HEIGHT + EXTRA_PADDING) + 'px';
+
+new Chart(canvas,{
+    type:'bar',
+    data:{
+        labels:classLabels,
+        datasets:[{
+            data:classValues,
+            backgroundColor:generateColors(classLabels.length),
+            borderRadius:6,
+            barThickness:18
+        }]
+    },
+    options:{
+        indexAxis:'y',
+        responsive:true,
+        maintainAspectRatio:false,
+        plugins:{
+            legend:{display:false}
+        },
+        scales:{
+            x:{ beginAtZero:true },
+            y:{ ticks:{ autoSkip:false } }
+        }
+    }
+});
+
+}); // ⭐ THIS WAS MISSING
+
 </script>
+
 @endsection
