@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Feedback;
+use App\Models\CategoryRecipient;
 
 use Illuminate\Database\Seeder;
 use App\Enum\UserRole;
@@ -45,6 +46,7 @@ class DatabaseSeeder extends Seeder
 
         if (in_array(app()->environment(), ['local', 'dev'])) {
             Feedback::factory(10)->create();
+            CategoryRecipient::factory(10)->create();
         }
     }
 }

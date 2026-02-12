@@ -181,7 +181,7 @@ class FeedbackService
     protected function emailAfterResponsRelated(Feedback $feedback): void
     {
         // Mail to Category Recipient
-        $recipients = CategoryRecipient::where(['category', $feedback->category, 'is_active', true])
+        $recipients = CategoryRecipient::where(['from_category' => $feedback->category, 'is_active' => true])
             ->pluck('email');
         Mail::to($recipients)->send(
             new AdminResponseMail($feedback->fresh())
