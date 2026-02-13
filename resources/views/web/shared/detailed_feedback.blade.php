@@ -113,9 +113,9 @@
                             Attachment
                         </h2>
 
-                        <a href="{{ $data->image }}" target="_blank">
+                        <a href="{{ Storage::url($data->image) }}" target="_blank">
                             <img
-                                src="{{ $data->image }}"
+                                src="{{  Storage::url($data->image)}}"
                                 class="rounded-lg border w-full h-64 object-cover hover:scale-[1.02] transition">
                         </a>
                     </div>

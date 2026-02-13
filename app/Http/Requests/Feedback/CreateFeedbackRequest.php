@@ -4,6 +4,8 @@ namespace App\Http\Requests\Feedback;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Enum\UserRole;
+use App\Enum\Category;
+use Illuminate\Validation\Rules\Enum;
 
 class CreateFeedbackRequest extends FormRequest
 {
@@ -23,11 +25,11 @@ class CreateFeedbackRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'feeedback_title' => "required|string",
-            'category_id' => 'required|exists:category,id',
+            'feedback_title' => "required|string",
+            'category' => ['required', new Enum(Category::class)],
             'details' => 'required|string|max:255',
             'location' => 'required|string',
-            'anonymous' => 'nullable|bool',
+            //'anonymous' => 'nullable|bool',
             'image' => 'nullable|mimes:jpg,png,jpeg,webp|max:5120'
         ];
     }

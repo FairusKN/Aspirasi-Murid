@@ -45,6 +45,6 @@ Route::middleware(['auth', 'is_active'])->group(function () {
             ->whereUuid('feedback');
         Route::put('/{feedback}/response', [FeedbackController::class, 'adminResponse'])->name('feedbacks.admin_response')
             ->whereUuid("feedback");
-        Route::post('/', [FeedbackController::class, 'create'])->name('feedbacks.create')->name('feedback.create');
+        Route::post('/', [FeedbackController::class, 'create'])->name('feedbacks.create');
     });
 });

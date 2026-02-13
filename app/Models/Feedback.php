@@ -13,12 +13,13 @@ class Feedback extends Model
 
     protected $fillable = [
         'category',
-        'feeedback_title',
+        'feedback_title',
         'details',
         'location',
         'status',
         'user_id',
-        'admin_response'
+        'admin_response',
+        'image'
     ];
 
     public function student(): BelongsTo
