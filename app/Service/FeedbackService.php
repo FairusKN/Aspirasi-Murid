@@ -174,14 +174,18 @@ class FeedbackService
     {
         $feedback->update($field);
         AutditLog::createLogging(LogAction::ResponseFeedback, "Response feedback: " . $feedback->title);
-        $this->emailAfterResponsRelated($feedback);
+        $this->emailAfterResponse($feedback);
     }
 
-    protected function emailAfterResponsRelated(Feedback $feedback): void
+    protected function emailAfterResponse(Feedback $feedback): void
     {
         // Mail to Category Recipient
-        $recipients = CategoryRecipient::where(['from_category' => $feedback->category, 'is_active' => true])
+        $recipients = CategoryRecipient::where([
+            ['from_category', $feedback->category],
+            ['is_active', true]
+        ])
             ->pluck('email');
+
         Mail::to($recipients)->send(
             new AdminResponseMail($feedback->fresh())
         );
