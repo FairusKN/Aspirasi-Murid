@@ -11,10 +11,20 @@
     <!-- BREADCRUMB -->
     <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div class="flex items-center gap-3">
+            @if($authUser->role !== 'student')
             <a href="{{ route('pages.feedback') }}"
                class="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 transition-colors">
                 ← Back to Feedback List
             </a>
+
+
+            @else
+            <a href="{{ url()->previous() }}"
+               class="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 transition-colors">
+                ← Back to Dashboard
+            </a>
+
+            @endif
 
             <span class="hidden sm:inline text-gray-300">|</span>
             <span class="text-sm text-gray-500">Feedback #{{ $data->id }}</span>

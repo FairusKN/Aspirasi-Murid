@@ -39,6 +39,4 @@ class AdminDashboardService
 
         return $this->data;
     }
-
-    protected function getFeedbackCountByStudentClass() {}
 }

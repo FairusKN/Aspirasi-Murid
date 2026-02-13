@@ -35,16 +35,23 @@ class DatabaseSeeder extends Seeder
             'password' => "testlmao"
         ]);
 
-        //student
-        User::create([
-            'email' => 'teststudent@test.com',
-            'full_name' => 'student test',
-            'role' => UserRole::Student->value,
-            'class' => UserClass::XII_RPL_1->value,
-            'password' => 'testlmao'
-        ]);
+
 
         if (in_array(app()->environment(), ['local', 'dev'])) {
+            //student
+            $student = User::create([
+                'email' => 'teststudent@test.com',
+                'full_name' => 'student test',
+                'nis' => '489357234856378',
+                'role' => UserRole::Student->value,
+                'class' => UserClass::XII_RPL_1->value,
+                'password' => 'testlmao'
+            ]);
+
+            Feedback::factory(7)->create([
+                'user_id' => $student->id
+            ]);
+
             Feedback::factory(10)->create();
             CategoryRecipient::factory(10)->create();
         }

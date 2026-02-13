@@ -12,7 +12,7 @@
 <body class="bg-[#E8F1F2] min-h-screen">
     <header>
         @includeWhen($authUser?->role === 'admin', 'web.includes.navbar_admin')
-        @includeWhen($authUser?->role === 'student', 'web.includes.student')
+        @includeWhen($authUser?->role === 'student', 'web.includes.navbar_student')
     </header>
     <main>
         @yield('content')
