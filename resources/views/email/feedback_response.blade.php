@@ -58,7 +58,6 @@
         </td>
     </tr>
 
-
     <!-- ADMIN RESPONSE -->
     <tr>
         <td style="padding:24px;background:#eff6ff;border-top:1px solid #dbeafe;border-bottom:1px solid #dbeafe;">

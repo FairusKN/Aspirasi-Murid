@@ -140,6 +140,16 @@
                     </div>
                     @endif
 
+                    <div class="border rounded-lg p-4 border-blue-100">
+                        <h2 class="text-sm font-medium text-blue-700 mb-1">
+                            Location
+                        </h2>
+
+                        <p class="whitespace-pre-line text-gray-800">
+                            {{ $data->location }}
+                        </p>
+                    </div>
+
                 </div>
 
             </div>

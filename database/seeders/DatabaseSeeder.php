@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\Feedback;
+use App\Enum\Category;
 use App\Models\CategoryRecipient;
 
 use Illuminate\Database\Seeder;
@@ -43,6 +43,13 @@ class DatabaseSeeder extends Seeder
             'class' => UserClass::XII_RPL_1->value,
             'password' => 'testlmao'
         ]);
+
+        foreach (Category::cases() as $category) {
+
+            CategoryRecipient::factory()->create([
+                'from_category' => $category->value,
+            ]);
+        }
 
 
         //if (in_array(app()->environment(), ['local', 'dev'])) {
