@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\ChatBotController;
 
 // Page COntroller
 use App\Http\Controllers\PageController\AuthPageController;
@@ -31,6 +32,7 @@ Route::prefix("/auth")->group(function () {
 
 Route::middleware(['auth', 'is_active'])->group(function () {
     Route::get("/dashboard", DashboardController::class)->name('pages.dashboard');
+    Route::post("/chatbot", [ChatBotController::class, 'chatBot'])->name('llm.chatbot');
 
     Route::prefix('/users')->group(function () {
         Route::get("/", [UserController::class, "show"])->name('pages.users');

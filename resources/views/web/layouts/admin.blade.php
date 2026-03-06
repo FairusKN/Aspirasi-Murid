@@ -18,6 +18,7 @@
         @yield('content')
         @yield('scripts')
     </main>
+    @include('components.chatbot')
 </body>
 </html>
 

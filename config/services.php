@@ -39,6 +39,10 @@ return [
         'key' => env('GROQ_API_KEY'),
         'base_url' => 'https://api.groq.com/openai/v1',
         'model' => 'llama-3.3-70b-versatile'
+    ],
+
+    'n8n' => [
+        'base_url' => env('N8N_BASE_URL', 'http://172.19.0.3:5678/webhook')
     ]
 
 ];
