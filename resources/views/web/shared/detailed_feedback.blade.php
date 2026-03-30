@@ -33,10 +33,10 @@
 
 
     <!-- MAIN GRID -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 {{ $authUser->role === 'admin' ? 'lg:grid-cols-3' : '' }} gap-6">
 
         <!-- LEFT SIDE (CONTENT CARD) -->
-        <div class="lg:col-span-2">
+        <div class="{{ $authUser->role === 'admin' ? 'lg:col-span-2' : '' }}">
 
             <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
 
