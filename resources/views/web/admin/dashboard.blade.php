@@ -127,6 +127,7 @@ tailwind.config = {
 
 @foreach ($data['recent_feedback'] as $feedback)
 
+<a href="{{ route('pages.detailed_feedback', $feedback) }}">
 <div class="bg-white rounded-xl shadow-sm border p-6 hover:shadow-md transition">
 
 <div class="flex justify-between items-start mb-3">
@@ -158,6 +159,7 @@ tailwind.config = {
 </div>
 
 </div>
+</a>
 
 @endforeach
 

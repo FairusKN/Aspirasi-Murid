@@ -38,6 +38,16 @@
             ></span>
           </a>
 
+          <a
+            href="{{route('pages.recipients')}}"
+            class="group relative inline-block hover:text-[#1B98E0] transition-colors duration-200"
+          >
+            Recipient
+            <span
+              class="absolute left-0 -bottom-1 h-0.5 w-0 bg-[#1B98E0] transition-all duration-300 group-hover:w-full"
+            ></span>
+          </a>
+
         </div>
     </div>
 

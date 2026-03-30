@@ -1,7 +1,7 @@
 @extends('web.layouts.admin')
 
 @section('header')
-    <title>Student</title>
+    <title>Recipient</title>
     <script>
       tailwind.config = {
         theme: {
@@ -38,7 +38,6 @@
             </div>
         @endif
 
-
         @if (session('success'))
             <div class="bg-green-50 border border-green-200 rounded-lg p-3 mb-6">
                 <div>{{ session('success') }}</div>
@@ -51,29 +50,28 @@
             <!-- Header -->
             <div class="flex items-center justify-between px-6 py-4 border-b">
                 <div>
-                    <h2 class="text-lg font-semibold text-gray-800">{{__('student.title')}}</h2>
-                    <p class="text-sm text-gray-500">{{__('student.sub_title')}}</p>
+                    <h2 class="text-lg font-semibold text-gray-800">Recipient</h2>
+                    <p class="text-sm text-gray-500">Manage recipients</p>
                 </div>
                 <div class="align-right pt-5">
                     <button
                         type="button"
-                        onclick="openStudentModal()"
+                        onclick="openRecipientModal()"
                         class="text-white bg-[#247BA0] hover:bg-[#247BA0]/90 transition focus:ring-4 focus:ring-blue-300 shadow-sm font-medium rounded-md text-sm px-4 py-2.5 focus:outline-none"
                     >
-                        {{__('student.create_student')}}
+                        Create Recipient
                     </button>
                 </div>
             </div>
 
-
         <!-- Search dan Filter -->
         <div class="px-6 py-4 border-b bg-white">
-            <form method="GET" action="{{ route('pages.users') }}" class="space-y-3">
+            <form method="GET" action="{{ route('pages.recipients') }}" class="space-y-3">
                 <!-- Search, Filter button -->
                 <div class="flex gap-2">
                     <div class="flex-1">
                         <input type="text" name="search" value="{{ request('search') }}"
-                               placeholder="Cari murid... (Nama, Email, NIS)"
+                               placeholder="Search recipient... (Name, Email)"
                                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
                     </div>
                     <button type="button" onclick="toggleFilter()"
@@ -84,9 +82,9 @@
                         Filter
                     </button>
                     <button type="submit" class="px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm font-medium">
-                        Cari
+                        Search
                     </button>
-                    <a href="{{ route('pages.users') }}" class="px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition text-sm font-medium">
+                    <a href="{{ route('pages.recipients') }}" class="px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition text-sm font-medium">
                         Reset
                     </a>
                 </div>
@@ -97,10 +95,17 @@
                         <div>
                             <label class="block text-xs font-medium text-gray-700 mb-1.5">Status</label>
                             <select name="is_active" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
-                                <option value="">Semua Status</option>
+                                <option value="">All Status</option>
                                 <option value="1" {{ request('is_active') == 'true' ? 'selected' : '' }}>True</option>
                                 <option value="0" {{ request('is_active') == 'false' ? 'selected' : '' }}>False</option>
                             </select>
+                        </div>
+                        <!-- Filter Role -->
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1.5">Role</label>
+                            <input type="text" name="role" value="{{ request('role') }}"
+                                   placeholder="Filter by role"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
                         </div>
                     </div>
                 </div>
@@ -113,9 +118,8 @@
                 dropdown.classList.toggle('hidden');
             }
 
-            // dropdown fiilter active
             document.addEventListener('DOMContentLoaded', function() {
-                const hasActiveFilters = {{ request('category') || request('location') || request('status') ? 'true' : 'false' }};
+                const hasActiveFilters = {{ request('is_active') || request('role') ? 'true' : 'false' }};
                 if (hasActiveFilters) {
                     document.getElementById('filterDropdown').classList.remove('hidden');
                 }
@@ -131,7 +135,7 @@
                     <tr class="text-[#E8F1F2] uppercase text-xs tracking-wider">
 
                         <th class="px-6 py-3 text-left w-1/3">
-                            {{__('feedback.student_name')}}
+                            Full Name
                         </th>
 
                         <th class="px-6 py-3 text-left w-1/3">
@@ -139,7 +143,7 @@
                         </th>
 
                         <th class="px-6 py-3 text-center w-1/6">
-                            NIS
+                            Category
                         </th>
 
                         <th class="px-6 py-3 text-center w-1/6">
@@ -152,29 +156,28 @@
                     <!-- Body -->
                     <tbody class="divide-y">
 
-                        <!-- Row -->
-                        @foreach ($data as $student)
+                        @foreach ($data as $recipient)
                             <tr class="group hover:bg-blue-50 transition">
                                 <td class="px-6 py-4 flex items-center gap-3">
                                     <div>
-                                        <p class="font-medium text-gray-800">{{$student->full_name }}</p>
+                                        <p class="font-medium text-gray-800">{{ $recipient->full_name }}</p>
                                     </div>
                                 </td>
 
                                 <td class="px-6 py-4 text-gray-700">
-                                   {{$student->email}}
+                                    {{ $recipient->email }}
                                 </td>
 
                                 <td class="px-6 py-4 text-center">
-                                    {{$student->nis}}
+                                    {{ $recipient->from_category }}
                                 </td>
 
                                 <td class="px-6 py-4 text-center text-gray-500">
-                                    <form method="POST" action="{{ route('users.toggle_activate', $student)}}">
+                                    <form method="POST" action="{{ route('recipient.toggle_activate', $recipient) }}">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                                        <button type="submit" class="inline-flex px-3 py-1 rounded-full text-xs font-medium {{$statusClasses[$student->is_active ? 'is_active' : 'not_active']}}">
-                                            {{$student->is_active ? "Aktif" : "Tidak AKtif"}}
+                                        <button type="submit" class="inline-flex px-3 py-1 rounded-full text-xs font-medium {{ $statusClasses[$recipient->is_active ? 'is_active' : 'not_active'] }}">
+                                            {{ $recipient->is_active ? "Active" : "Inactive" }}
                                         </button>
                                     </form>
                                 </td>
@@ -182,8 +185,8 @@
                         @endforeach
                     </tbody>
                 </table>
-                <div class="px-6 py-4 ">
-                    <div >
+                <div class="px-6 py-4">
+                    <div>
                         {{ $data->links('pagination::tailwind') }}
                     </div>
                 </div>
@@ -192,19 +195,19 @@
     </div>
 
     <!-- Modal Overlay -->
-    <div id="studentModal"
+    <div id="recipientModal"
          class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50">
 
         <!-- Modal Box -->
         <div class="bg-white rounded-xl shadow-lg w-full max-w-3xl p-6 relative">
 
             <!-- Close Button -->
-            <button onclick="closeStudentModal()"
+            <button onclick="closeRecipientModal()"
                     class="absolute right-4 top-4 text-gray-400 hover:text-gray-700 text-xl">
                 ✕
             </button>
 
-            <h2 class="text-lg font-semibold mb-4">Create Student</h2>
+            <h2 class="text-lg font-semibold mb-4">Create Recipient</h2>
 
             <!-- Tabs -->
             <div class="flex gap-3 mb-6">
@@ -223,7 +226,7 @@
             <!-- Manual Form -->
             <div id="manualForm">
 
-                <form method="POST" action="{{ route('users.create') }}" class="space-y-5">
+                <form method="POST" action="{{ route('recipients.create') }}" class="space-y-5">
                     @csrf
 
                     <!-- Full Name -->
@@ -249,58 +252,30 @@
                         <input
                             type="email"
                             name="email"
-                            placeholder="student@email.com"
+                            placeholder="recipient@email.com"
                             required
                             class="w-full border border-gray-300 rounded-md px-3 py-2
                                    focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         >
                     </div>
 
-                    <!-- NIS -->
+                    <!-- Category -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">
-                            NIS
-                        </label>
-                        <input
-                            type="text"
-                            name="nis"
-                            placeholder="Student ID"
-                            required
-                            class="w-full border border-gray-300 rounded-md px-3 py-2
-                                   focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                        >
-                    </div>
-
-                    <!-- Class -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
-                            Class
+                            Category
                         </label>
                         <select
-                            name="class"
+                            name="from_category"
+                            required
                             class="w-full border border-gray-300 rounded-md px-3 py-2
                                    focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         >
-                            @foreach(App\Enum\UserClass::cases() as $class)
-                                <option value="{{$class->value}}">
-                                    {{ $class }}
+                            @foreach(App\Enum\Category::cases() as $category)
+                                <option value="{{ $category->value }}">
+                                    {{ $category }}
                                 </option>
                             @endforeach
                         </select>
-                    </div>
-
-                    <!-- Password -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
-                            Password (Optional)
-                        </label>
-                        <input
-                            type="password"
-                            name="password"
-                            placeholder="Leave empty for default password"
-                            class="w-full border border-gray-300 rounded-md px-3 py-2
-                                   focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                        >
                     </div>
 
                     <!-- Submit -->
@@ -310,13 +285,19 @@
                             class="w-full bg-blue-600 hover:bg-blue-700 transition text-white
                                    font-medium py-2.5 rounded-md"
                         >
-                            Create Student
+                            Create Recipient
                         </button>
                     </div>
 
                 </form>
 
             </div>
+
+            <!-- Upload Form (disabled placeholder) -->
+            <div id="uploadForm" class="hidden">
+                <p class="text-sm text-gray-500">Upload feature coming soon.</p>
+            </div>
+
         </div>
     </div>
 @endsection
@@ -324,13 +305,13 @@
 
 @section('scripts')
     <script>
-        function openStudentModal() {
-            document.getElementById('studentModal').classList.remove('hidden');
-            document.getElementById('studentModal').classList.add('flex');
+        function openRecipientModal() {
+            document.getElementById('recipientModal').classList.remove('hidden');
+            document.getElementById('recipientModal').classList.add('flex');
         }
 
-        function closeStudentModal() {
-            document.getElementById('studentModal').classList.add('hidden');
+        function closeRecipientModal() {
+            document.getElementById('recipientModal').classList.add('hidden');
         }
 
         function showTab(type) {

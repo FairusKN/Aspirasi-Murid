@@ -186,9 +186,11 @@ class FeedbackService
         ])
             ->pluck('email');
 
-        Mail::to($recipients)->send(
-            new AdminResponseMail($feedback->fresh())
-        );
+        if (!$recipients->isEmpty()) {
+            Mail::to($recipients)->send(
+                new AdminResponseMail($feedback->fresh())
+            );
+        }
 
         // Mail to Student
         Mail::to($feedback->student?->email)->send(
