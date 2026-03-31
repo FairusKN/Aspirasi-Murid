@@ -18,7 +18,7 @@
         @yield('content')
         @yield('scripts')
     </main>
-    @include('components.chatbot')
+    @includeWhen($authUser?->role === 'admin', 'components.chatbot')
 </body>
 </html>
 
