@@ -29,20 +29,20 @@ class DatabaseSeeder extends Seeder
 
         //admin
         User::create([
-            'email' => 'testadmin@test.com',
-            'full_name' => "admin test",
+            'email' => 'fairuskamal@gmail.com',
+            'full_name' => "Fairus Kamal Nafis",
             'role' => UserRole::Admin->value,
             'password' => "testlmao"
         ]);
 
-        $student = User::create([
-            'email' => 'teststudent@test.com',
-            'full_name' => 'student test',
-            'nis' => '489357234856378',
-            'role' => UserRole::Student->value,
-            'class' => UserClass::XII_RPL_1->value,
-            'password' => 'testlmao'
-        ]);
+        //$student = User::create([
+        //    'email' => 'teststudent@test.com',
+        //    'full_name' => 'student test',
+        //    'nis' => '489357234856378',
+        //    'role' => UserRole::Student->value,
+        //    'class' => UserClass::XII_RPL_1->value,
+        //    'password' => 'testlmao'
+        //]);
 
         foreach (Category::cases() as $category) {
 
