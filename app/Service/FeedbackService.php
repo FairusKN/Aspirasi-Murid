@@ -4,7 +4,7 @@ namespace App\Service;
 
 use App\Models\Feedback;
 use App\Models\AutditLog;
-use App\Models\CategoryRecipient;
+use App\Models\User;
 use App\Service\ImageService;
 use App\Enum\LogAction;
 
@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AdminResponseMail;
+use App\Enum\UserRole;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -180,9 +181,9 @@ class FeedbackService
     protected function emailAfterResponse(Feedback $feedback): void
     {
         // Mail to Category Recipient
-        $recipients = CategoryRecipient::where([
-            ['from_category', $feedback->category],
-            ['is_active', true]
+        $recipients = User::where([
+            ['is_active', true],
+            ['role', UserRole::Recipient->value]
         ])
             ->pluck('email');
 

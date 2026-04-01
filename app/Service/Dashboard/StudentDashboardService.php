@@ -3,6 +3,7 @@
 namespace App\Service\Dashboard;
 
 use Illuminate\Support\Facades\Auth;
+use App\Models\Category;
 
 class StudentDashboardService
 {
@@ -15,6 +16,7 @@ class StudentDashboardService
     {
         /** @disregard P1013 Undefined method */
         $user = Auth::user()->load('hasFeedback');
-        return $user;
+        $categories = Category::select('id', 'category_name')->get();
+        return compact('user', 'categories');
     }
 }

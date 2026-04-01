@@ -137,7 +137,7 @@ tailwind.config = {
 </h3>
 
 <span class="px-2 py-1 text-xs rounded-full bg-gray-100">
-{{$feedback->category}}
+{{$feedback->category->category_name}}
 </span>
 
 </div>

@@ -54,6 +54,8 @@ class FeedbackController extends Controller
         );
     }
 
+    public function updateStudent() {}
+
     public function update(UpdateFeedbackRequest $request, Feedback $feedback): RedirectResponse
     {
         $this->authorize('isUserCreateThisFeedback', $feedback);

@@ -24,7 +24,12 @@ class AdminDashboardService
         $this->data['analytics']["total_feedback"] =  Feedback::count();
         $this->data['analytics']['total_feedback_today'] = Feedback::whereDate('created_at', now()->today())->count();
         $this->data['analytics']['total_feedback_status'] = Feedback::all()->countBy('status');
-        $this->data['analytics']['total_based_on_category'] =  Feedback::all()->countBy('category');
+        $this->data['analytics']['total_based_on_category'] =
+            Feedback::query()
+            ->join('categories', 'feedback.category_id', '=', 'categories.id')
+            ->selectRaw('categories.category_name, COUNT(*) as total')
+            ->groupBy('categories.category_name')
+            ->pluck('total', 'category_name');
         $this->data['analytics']['total_based_on_class'] =  Feedback::join('users', 'feedback.user_id', '=', 'users.id')
             ->where('users.role', UserRole::Student->value)
             ->select('users.class', DB::raw('COUNT(*) as total'))

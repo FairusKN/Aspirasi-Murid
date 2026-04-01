@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\ChatBotController;
 use App\Http\Controllers\CategoryRecipientController;
+use App\Http\Controllers\CategoryController;
 
 // Page COntroller
 use App\Http\Controllers\PageController\AuthPageController;
@@ -54,6 +55,7 @@ Route::middleware(['auth', 'is_active'])->group(function () {
     Route::prefix('/recipients')->group(function () {
         Route::get('/', [CategoryRecipientController::class, 'show'])->name('pages.recipients');
         Route::post('/', [CategoryRecipientController::class, 'create'])->name('recipients.create');
-        Route::post("/{recipient}/toggle-activate", [CategoryRecipientController::class, 'activateToggle'])->name('recipient.toggle_activate');
     });
+
+    Route::resource('/categories', CategoryController::class);
 });

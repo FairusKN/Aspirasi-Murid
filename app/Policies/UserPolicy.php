@@ -31,7 +31,7 @@ class UserPolicy
     {
         return match ($actor->role) {
             UserRole::SuperAdmin->value => $actor->role !== $target->role, // SuperAdmin can deactivate anyone below them
-            UserRole::Admin->value => $target->role === UserRole::Student->value, // admin can deactivate student only
+            UserRole::Admin->value => $target->role === UserRole::Student->value || $target->role === UserRole::Recipient->value, // admin can deactivate student only
             default => false
         };
     }

@@ -12,10 +12,11 @@ class Feedback extends Model
     use HasUuids, HasFactory;
 
     protected $fillable = [
-        'category',
+        'category_id',
         'feedback_title',
         'details',
         'location',
+        'location_details',
         'status',
         'user_id',
         'admin_response',
@@ -25,5 +26,10 @@ class Feedback extends Model
     public function student(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id');
     }
 }

@@ -5,6 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use App\Enum\FeedbackStatus;
 use App\Enum\Category;
+use App\Enum\Location;
 
 return new class extends Migration
 {
@@ -16,10 +17,11 @@ return new class extends Migration
         Schema::create('feedback', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->foreignUuid('user_id')->constrained('users');
-            $table->enum('category', array_column(Category::cases(), 'value'));
+            $table->foreignUuid('category_id')->constrained('categories');
             $table->string('feedback_title');
             $table->text('details');
-            $table->string('location');
+            $table->enum('location', array_column(Location::cases(), 'value'));
+            $table->string('location_details')->nullable();
             $table->enum('status', array_column(FeedbackStatus::cases(), 'value'))->default(FeedbackStatus::Waiting->value);
             $table->string('image')->nullable();
             $table->text('admin_response')->nullable();

@@ -29,7 +29,7 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-@foreach  ( $data->hasFeedback as $feedback)
+@foreach  ( $data['user']->hasFeedback as $feedback)
 
 <a href="{{route('pages.detailed_feedback', $feedback)}}">
 <div class="bg-white rounded-xl shadow-sm border p-6 hover:shadow-md transition">
@@ -41,7 +41,7 @@
 </h3>
 
 <span class="px-2 py-1 text-xs rounded-full bg-gray-100">
-{{$feedback->category}}
+{{$feedback->category->category_name}}
 </span>
 
 </div>
@@ -100,11 +100,11 @@
             <!-- Category -->
             <div>
                 <label class="block text-sm font-medium mb-1">Category</label>
-                <select name="category"
+                <select name="category_id"
                         class="w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500">
-                            @foreach(App\Enum\Category::cases() as $category)
-                                <option value="{{$category->value}}">
-                                    {{ $category }}
+                            @foreach($data['categories'] as $category)
+                                <option value="{{$category->id}}">
+                                    {{ $category->category_name }}
                                 </option>
                             @endforeach
                 </select>
@@ -120,7 +120,20 @@
             <!-- Location -->
             <div>
                 <label class="block text-sm font-medium mb-1">Location</label>
-                <input type="text" name="location" required
+                <select name="location"
+                        class="w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500">
+                            @foreach(App\Enum\Location::cases() as $location)
+                                <option value="{{$location->value}}">
+                                    {{ $location }}
+                                </option>
+                            @endforeach
+                </select>
+            </div>
+
+            <!-- Details Location -->
+            <div>
+                <label class="block text-sm font-medium mb-1">Location Details</label>
+                <input type="text" name="location_details" required
                        class="w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500">
             </div>
 

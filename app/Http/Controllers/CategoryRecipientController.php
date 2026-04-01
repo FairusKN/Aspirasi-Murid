@@ -6,6 +6,7 @@ use App\Service\CategoryRecipientService;
 use App\Models\CategoryRecipient;
 use App\Http\Requests\Category\RecipientFilterRequest;
 use App\Http\Requests\Category\CreateRecipientRequest;
+use App\Models\User;
 
 use Illuminate\Support\Facades\Auth;
 use App\Enum\UserRole;
@@ -23,7 +24,13 @@ class CategoryRecipientController extends Controller
     {
         $fields = $request->validated();
 
-        CategoryRecipient::create($fields);
+        $user = User::create(array_merge($fields, [
+            'role' => UserRole::Recipient->value,
+        ]));
+
+        CategoryRecipient::create(array_merge($fields, [
+            'user_id' => $user->id
+        ]));
         return back()->with(
             "success",
             __(

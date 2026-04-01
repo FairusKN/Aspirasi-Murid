@@ -2,10 +2,10 @@
 
 namespace App\Service;
 
-use App\Models\CategoryRecipient;
+use App\Models\User;
+use App\Models\Category;
+use App\Enum\UserRole;
 
-
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class CategoryRecipientService
 {
@@ -17,9 +17,11 @@ class CategoryRecipientService
         //
     }
 
-    public function recipientPaginationQuery(array $filter): LengthAwarePaginator
+    public function recipientPaginationQuery(array $filter)
     {
-        $query = CategoryRecipient::query();
+        $query = User::query();
+
+        $query->where('role', UserRole::Recipient->value);
 
         $query->when(
             isset($filter['search']) && $filter['search'] !== '',
@@ -29,30 +31,18 @@ class CategoryRecipientService
         );
 
         $query->when(
-            isset($filter['is_active']),
-            fn($q) => $q->where('is_active', $filter['is_active'])
-        );
-
-        $query->when(
             isset($filter['from_category']),
             fn($q) => $q->where('from_category', $filter['from_category'])
         );
 
         $query->orderBy('created_at', 'asc');
 
-        $data = $query->paginate(10);
+        $recipients = $query->with('hasRecipient')->paginate(10);
 
-        return $data;
-    }
+        // Return Category cuz in the same page as create recipient
 
-    public function activateToggle(CategoryRecipient $userToChange): bool
-    {
-        $userToChange->update([
-            // If is_active is true, then it will become false
-            // Else it will become True
-            'is_active' => $userToChange->is_active ? false : true
-        ]);
+        $categories = Category::select('id', 'category_name')->get();
 
-        return $userToChange->fresh()->is_active;
+        return compact('recipients', 'categories');
     }
 }

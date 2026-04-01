@@ -4,10 +4,8 @@ namespace App\Http\Requests\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Enum\UserRole;
-use App\Enum\Category;
-use Illuminate\Validation\Rules\Enum;
 
-class CreateRecipientRequest extends FormRequest
+class CreateUpdateCategory extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,19 +23,7 @@ class CreateRecipientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'full_name' => ['required', 'string', 'max:255'],
-
-            'category_id' => [
-                'required',
-                'exists:categories,id'
-            ],
-            'password' => 'required|string|min:8',
-            'email' => [
-                'required',
-                'email',
-                'max:255',
-                'unique:users,email',
-            ],
+            'category_name' => 'required|string|max:255|unique:categories,category_name'
         ];
     }
 }

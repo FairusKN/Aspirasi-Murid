@@ -89,7 +89,7 @@
                         </h2>
 
                         <p class="text-gray-900 font-medium">
-                            {{ ucfirst(str_replace('_',' ', $data->category)) }}
+                            {{ ucfirst(str_replace('_',' ', $data->category->category_name)) }}
                         </p>
                     </div>
 
@@ -147,6 +147,16 @@
 
                         <p class="whitespace-pre-line text-gray-800">
                             {{ $data->location }}
+                        </p>
+                    </div>
+
+                    <div class="border rounded-lg p-4 border-blue-100">
+                        <h2 class="text-sm font-medium text-blue-700 mb-1">
+                            Detailed Location
+                        </h2>
+
+                        <p class="whitespace-pre-line text-gray-800">
+                            {{ $data->location_details }}
                         </p>
                     </div>
 

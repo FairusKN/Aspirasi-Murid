@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
 
 class User extends Authenticatable
@@ -62,5 +63,10 @@ class User extends Authenticatable
     public function hasLog(): HasMany
     {
         return $this->hasMany(AutditLog::class, "admin_id");
+    }
+
+    public function hasRecipient(): HasOne
+    {
+        return $this->hasOne(CategoryRecipient::class, 'user_id');
     }
 }

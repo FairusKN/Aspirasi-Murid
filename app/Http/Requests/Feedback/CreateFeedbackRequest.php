@@ -5,6 +5,7 @@ namespace App\Http\Requests\Feedback;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Enum\UserRole;
 use App\Enum\Category;
+use App\Enum\Location;
 use Illuminate\Validation\Rules\Enum;
 
 class CreateFeedbackRequest extends FormRequest
@@ -26,9 +27,10 @@ class CreateFeedbackRequest extends FormRequest
     {
         return [
             'feedback_title' => "required|string",
-            'category' => ['required', new Enum(Category::class)],
+            'category_id' => 'required|exists:categories,id',
             'details' => 'required|string|max:255',
-            'location' => 'required|string',
+            'location' => ['required', new Enum(Location::class)],
+            'location_details' => 'nullable|string|max:255',
             //'anonymous' => 'nullable|bool',
             'image' => 'nullable|mimes:jpg,png,jpeg,webp|max:5120'
         ];

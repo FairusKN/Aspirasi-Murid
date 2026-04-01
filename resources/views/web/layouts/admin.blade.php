@@ -13,6 +13,7 @@
     <header>
         @includeWhen($authUser?->role === 'admin', 'web.includes.navbar_admin')
         @includeWhen($authUser?->role === 'student', 'web.includes.navbar_student')
+        @includeWhen($authUser?->role === 'recipient', 'web.includes.navbar_recipient')
     </header>
     <main>
         @yield('content')

@@ -44,12 +44,12 @@ class DatabaseSeeder extends Seeder
         //    'password' => 'testlmao'
         //]);
 
-        foreach (Category::cases() as $category) {
+        //foreach (Category::cases() as $category) {
 
-            CategoryRecipient::factory()->create([
-                'from_category' => $category->value,
-            ]);
-        }
+        //    CategoryRecipient::factory()->create([
+        //        'from_category' => $category->value,
+        //    ]);
+        //}
 
 
         //if (in_array(app()->environment(), ['local', 'dev'])) {

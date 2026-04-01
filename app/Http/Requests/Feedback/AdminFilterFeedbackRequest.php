@@ -15,7 +15,7 @@ class AdminFilterFeedbackRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return in_array($this->user()->role, [UserRole::Admin->value, UserRole::SuperAdmin->value]);
+        return in_array($this->user()->role, [UserRole::Admin->value, UserRole::SuperAdmin->value, UserRole::Recipient->value]);
     }
 
     /**
