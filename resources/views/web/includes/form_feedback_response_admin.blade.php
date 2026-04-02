@@ -22,23 +22,6 @@
             @csrf
             @method('PUT')
 
-            <!-- CATEGORY -->
-            <div>
-                <label class="text-sm font-medium text-gray-700">Category</label>
-
-                <select name="category"
-                        class="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500">
-
-                    @foreach(App\Enum\Category::cases() as $category)
-                        <option value="{{$category->value}}">
-                            {{ $category }}
-                        </option>
-                    @endforeach
-
-                </select>
-            </div>
-
-
             <!-- STATUS -->
             <div>
                 <label class="text-sm font-medium text-gray-700">Status</label>

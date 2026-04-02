@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Enum\Category;
+use App\Models\Category;
 use App\Models\CategoryRecipient;
 
 use Illuminate\Database\Seeder;
@@ -31,9 +31,37 @@ class DatabaseSeeder extends Seeder
         User::create([
             'email' => 'fairuskamal@gmail.com',
             'full_name' => "Fairus Kamal Nafis",
+            'class' => UserClass::XII_RPL_1->value,
             'role' => UserRole::Admin->value,
             'password' => "testlmao"
         ]);
+
+        //student
+        User::create([
+            'email' => 'student@gmail.com',
+            'full_name' => 'Adit',
+            'role' => UserRole::Student->value,
+            'nis' => 123432432,
+            'password' => 'testlmao'
+        ]);
+
+        //Recipient
+        $category = Category::create([
+            'category_name' => "Sarana & Prasarana"
+        ]);
+
+        $recipient = User::create([
+            'email' => 'rep@gmail.com',
+            'full_name' => 'Abdi',
+            'role' => UserRole::Recipient->value,
+            'password' => 'testlmao'
+        ]);
+
+        CategoryRecipient::create([
+            'category_id' => $category->id,
+            'user_id' => $recipient->id
+        ]);
+
 
         //$student = User::create([
         //    'email' => 'teststudent@test.com',
