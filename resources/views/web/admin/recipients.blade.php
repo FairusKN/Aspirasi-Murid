@@ -130,7 +130,7 @@
                                 </td>
 
                                 <td class="px-6 py-4 text-center">
-                                    {{ $recipient->hasRecipient->category->category_name }}
+                                    {{ $recipient->hasRecipient?->category?->category_name  ?? 'No Category'}}
                                 </td>
 
                                 <td class="px-6 py-4 text-center text-gray-500">

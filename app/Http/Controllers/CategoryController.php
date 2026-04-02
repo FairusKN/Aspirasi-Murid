@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Models\Category;
 use App\Http\Requests\Category\CreateUpdateCategory;
 use App\Service\CategoryService;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class CategoryController extends Controller
 {

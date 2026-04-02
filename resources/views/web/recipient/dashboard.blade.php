@@ -26,7 +26,7 @@
 <!-- ================= RECENT FEEDBACK ================= -->
 <div>
 
-<h2 class="text-xl font-bold mb-6">Recent Feedback</h2>
+<h2 class="text-xl font-bold mb-6">Category {{$authUser->hasRecipient->category->category_name}} Feedback</h2>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
